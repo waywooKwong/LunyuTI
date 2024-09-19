@@ -4,12 +4,15 @@
 
 # 原型开发过程
 
-date: 09/18/2024
+date: 18/09/2024
 place: dormitory 1-608
 topic: work seperation based on pre-processed data
 content: 
     1. scratch content based on role "name"
+        王璞
     2. scratch content based on question "word"
+        钱程
     3. customized model into "Lunyu model"
+        邝伟华
     4. frontend: dialog bubble style, hierarchical two layers
-    
+        李群
