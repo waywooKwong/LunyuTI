@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.topics-area {
+  margin-bottom: 10px;
+}
+
+.topics-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.topic-item {
+  display: inline-block;
+  background-color: #1aad19;
+  color: white;
+  padding: 5px 8px;
+  margin: 5px 5px 0 0;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.question-area {
+  margin-bottom: 10px;
+}
+
+.bubble {
+  max-width: 70%;
+  padding: 10px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  word-wrap: break-word;
+}
+
+.user-bubble {
+  align-self: flex-end; /* 让用户的输入靠右 */
+  max-width: 70%;
+  padding: 10px;
+  background-color: #1aad19;
+  color: white;
+  border-radius: 10px;
+  word-wrap: break-word;
+  margin-bottom: 10px;
+}
+
+.original-text {
+  font-family: "SimSun", serif;
+  font-size: 18px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.translation-text {
+  font-family: "KaiTi", serif;
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+  line-height: 1.5;
+}
+
+.dialogue-box {
+  flex-grow: 1;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow-y: scroll;
+}
+
+.dialogue-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.input-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.input-field {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  background-color: #1aad19;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+}

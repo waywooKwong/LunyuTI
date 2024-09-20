@@ -1,0 +1,5 @@
+<view class="container" style="width: 747rpx; display: flex; box-sizing: border-box; height: 1447rpx">
+  <view class="title">欢迎使用论语性格测试</view>
+  <button class="start-btn" bindtap="onStart" style="width: 462rpx; height: 135rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">开始测试</button>
+  <view class="intro" style="width: 697rpx; display: block; box-sizing: border-box">通过论语中的话题，了解你与孔子弟子的匹配程度</view>
+</view>
