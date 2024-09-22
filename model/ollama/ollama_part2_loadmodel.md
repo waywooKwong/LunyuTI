@@ -14,7 +14,7 @@
 2. ollama 文件夹目录下的 ModelFile 文本，记录 model prompt
 
    ```
-   cd E:\Lunyu\model\ollama
+   cd model\ollama
 
    # 创建一个名为 Lunyu 的模型
    ollama create Lunyu -f ./Modelfile
