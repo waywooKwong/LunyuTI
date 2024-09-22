@@ -1,3 +1,21 @@
+"""
+22/09/2024 - v1 - weihua
+这是 langchain 获得每个角色对全部问题回答的链
+目前链子的流程已经基本跑通，实现了从 log\QianCheng\问答.json 读取问题并回答
+
+还欠缺：
+1. 角色信息加入 prompt
+2. 输出的格式处理/加入数据库
+"""
+
+from langchain.chains import create_history_aware_retriever
+from langchain.chains.retrieval import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain.output_parsers import StructuredOutputParser, ResponseSchema
+from langchain_core.messages import AIMessage
+from langchain_community.chat_models import ChatOllama
+from langchain_core.prompts import MessagesPlaceholder,ChatPromptTemplate,PromptTemplate
 import datetime
 
 # 标记时间戳，便于文件命名于标定时间
@@ -8,17 +26,15 @@ timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 ## 1.1 设定选择模型，这里使用 ChatOllama
 from langchain_community.chat_models import ChatOllama
 
-model_name = "qwen2"  # llama3.1 / gemma2 / qwen2 ，可能中文的用qwen2 效果会好些？
+model_name = "Lunyu"  # 这里的 Lunyu 模型是 Ollama 基于 Qwen2.5 生成的
 chat_model = ChatOllama(model=model_name)
 
 ## 1.2 embeddings 模型（用 m3e-base），需要本地加载,，gitignore掉了
 from langchain_huggingface import HuggingFaceEmbeddings
 
-# 还没加载好
-embeddings = HuggingFaceEmbeddings(
-    model_name="model/m3e-base", model_kwargs={"device": "cuda"}
-)
-print("embedding info:", embeddings.model_name)
+# 这里先确认模型有没有加载到本地
+embeddings = HuggingFaceEmbeddings(model_name="model\embedding\m3e-base", model_kwargs={"device": "cpu"})
+print("embedding loading:", embeddings.model_name)
 
 ## 1.3 向量库加载
 # retriever链中预加载的文本
@@ -27,7 +43,7 @@ from document import Document
 docs_preload = []
 
 # 添加文本的模板
-docs_preload.append([Document(page_content="", metadata={"label": ""})])
+docs_preload.append(Document(page_content="hello", metadata={"label": ""}))
 
 from langchain_community.vectorstores import Qdrant
 
@@ -51,17 +67,19 @@ history_prompt: ChatPromptTemplate = ChatPromptTemplate.from_messages(
     ]
 )
 history_chain = create_history_aware_retriever(
-    llm=chat_model, prompt=history_prompt, retriever=vector_retriever
+    llm=chat_model, 
+    prompt=history_prompt, 
+    retriever=vector_retriever
 )
 
 doc_prompt = ChatPromptTemplate.from_messages(
     [
         (
-            "system",
-            """
-        您现在是一个企业日常进行变更维护的工程师，\n
-        你擅长通过读取记录变更服务相关指标判断变更是否导致发生异常并提供可能的修复措施。\n
-        我现在有一些记录变更服务指标数据的领域文本文件信息，请判断这次变更是否符合预期。\n
+        "system",
+        """
+        你现在是孔子门徒，\n
+        你会根据你的人物事迹和性格特征，对事物发表你的看法。\n
+        现在我会与你对话，请你用《论语》中文言文风格与我交流\n
         {context}
         """,
         ),
@@ -75,7 +93,8 @@ retriever_chain = create_retrieval_chain(history_chain, documents_chain)
 
 chat_history = []
 
-fact_extraction_str = """
+# 特定的输出格式字符串
+input_str = """
 {text_input}
 please strictly answer in format: 
 {format_instruction}
@@ -83,22 +102,32 @@ please strictly answer in format:
 
 from langchain.output_parsers import ResponseSchema, StructuredOutputParser
 from langchain_core.prompts import PromptTemplate
-response_schema = [
-    ResponseSchema(name="change_type", description=change_type_discription),
-]
+response_schema = [ResponseSchema(name="answer", description=input_str),]
 
-output_parser = StructuredOutputParser.from_response_schemas(
-    response_schemas=response_schema
-)
+output_parser = StructuredOutputParser.from_response_schemas(response_schemas=response_schema)
 
 format_instruction = output_parser.get_format_instructions()
 prompt_template = PromptTemplate.from_template(
-    template=fact_extraction_str,
+    template=input_str,
     partial_variables={"format_instruction": format_instruction},
 )
 
-prompt_str_input = prompt_template.format(
-    text_input=target_doc, combine_classification=classification_response
-)
-output_completion: AIMessage = chat_model.invoke(input=prompt_str_input)
-content = output_completion.content
+# input = "你怎么看待巴以冲突"
+import json
+
+json_path = "log\QianCheng\问答.json"
+with open(json_path,'r',encoding='utf-8') as f:
+    data = json.load(f)
+    
+questions = [item['question'] for item in data]
+
+for question in questions:
+    print("question:",question)
+
+    # question 作为 text_input
+    prompt_str_input = prompt_template.format(
+        text_input=question,
+    )
+    output_completion: AIMessage = chat_model.invoke(input=prompt_str_input)
+    content = output_completion.content
+    print("answer:",content)
