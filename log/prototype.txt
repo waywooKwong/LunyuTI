@@ -8,15 +8,25 @@ date: 18/09/2024
 place: dormitory 1-608
 topic: work seperation based on pre-processed data
 content: 
-    1. scratch content based on role "name"
-        王璞
-    2. scratch content based on question "word"
-        钱程
-    3. customized model into "Lunyu model"
-        邝伟华
-    4. frontend: dialog bubble style, hierarchical two layers
-        李群
+    1. scratch content based on role "name" - WangPu
+    2. scratch content based on question "word" - QianCheng
+    3. customized model into "Lunyu model" - Kuang Weihua
+    4. frontend: dialog bubble style, hierarchical two layers - LiQun
 
 date: 20/09/2024
 place: dormitory 1-608
 topic: summary pre-processed data, and usage next step
+content:
+    1. full fill role story in role-json - WangPu
+    2. finish work before - QianCheng
+    3. Make model by Ollama - KuangWeihua
+    4. frontend: design Output picture - LiQun
+
+date: 23/09/2024
+place: online
+topic: Task alignment
+content:
+    0. pull latest repository
+    1. load embedding models "m3e-base" in local "model\embedding"
+    2. follow "model\ollama\ollama_part2_loadmodel.md" to build model
+    3. run "code\langchain_demo.py" successfully
