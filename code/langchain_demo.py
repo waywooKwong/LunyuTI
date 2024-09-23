@@ -95,6 +95,8 @@ chat_history = []
 
 # 特定的输出格式字符串
 input_str = """
+你的具体描述如下：
+{description}
 {text_input}
 please strictly answer in format: 
 {format_instruction}
@@ -120,13 +122,19 @@ with open(json_path,'r',encoding='utf-8') as f:
     data = json.load(f)
     
 questions = [item['question'] for item in data]
+description="""
+你是曾子
 
+
+"""
 for question in questions:
     print("question:",question)
 
     # question 作为 text_input
     prompt_str_input = prompt_template.format(
         text_input=question,
+        description=description
+
     )
     output_completion: AIMessage = chat_model.invoke(input=prompt_str_input)
     content = output_completion.content
