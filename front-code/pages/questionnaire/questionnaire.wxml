@@ -2,17 +2,18 @@
   <!-- 显示选中的话题 -->
   <view class="topics-area">
     <text class="topics-title">你选择的话题:</text>
-    <block wx:for="{{selectedTopics}}" wx:key="index">
-      <view class="topic-item">{{item}}</view>
-    </block>
+    <view class="topic-items">
+      <block wx:for="{{selectedTopics}}" wx:key="index">
+        <view class="topic-item">{{item}}</view>
+      </block>
+    </view>
   </view>
-
 
   <!-- 对话框 -->
   <scroll-view class="dialogue-box" scroll-y="true">
     <block wx:for="{{dialogues}}" wx:key="index">
-      <view class="dialogue-item" wx:if="{{item.type === 'system'}}">
-        <view class="bubble">
+      <view class="dialogue-item" wx:if="{{item.type ==='system'}}">
+        <view class="system-bubble">
           <text class="original-text">{{item.text.original}}\n</text> <!-- 原文 -->
           <text class="translation-text">{{item.text.translation}}</text>  <!-- 翻译 -->
         </view>
@@ -24,6 +25,11 @@
       </view>
     </block>
   </scroll-view>
+
+  <!-- 进度条 -->
+  <view class="progress-container">
+    <progress class="progress-bar" percent="{{progress}}" show-info active />
+  </view>
 
   <!-- 用户输入框和提交按钮 -->
   <view class="input-area">

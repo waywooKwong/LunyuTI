@@ -1,0 +1,26 @@
+<view class="overlay">
+  <view class="result-card">
+    <view class="header">
+      <text class="title">测试结果</text>
+    </view>
+    <view class="content">
+      <image class="disciple-image" src="{{discipleImageUrl}}" />
+      <view class="disciple-info">
+        <text class="disciple-name">{{discipleName}}\n</text>\n
+        <text class="disciple-description">你与{{discipleName}}最为相似</text>
+      </view>
+      <view class="dialogue">
+        <view class="bubble system-bubble">
+          <text class="original-text">子曰：“{{confuciusQuote}}”</text> <!-- 孔子的原话 -->
+        </view>
+        <view class="bubble user-bubble">
+          <text class="original-text">{{translatedUserQuote}}</text> <!-- 用户转化后的古文 -->
+        </view>
+      </view>
+    </view>
+    <view class="footer">
+      <button class="action-button" bindtap="saveImage">保存图片</button>
+      <button class="action-button" bindtap="sharePage">转发给朋友</button>
+    </view>
+  </view>
+</view>

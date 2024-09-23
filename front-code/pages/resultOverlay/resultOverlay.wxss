@@ -1,0 +1,119 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-card {
+  width: 80%;
+  max-width: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 50px;
+  background-color: #493737;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.disciple-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #493737;
+  margin-bottom: 20px;
+}
+
+.disciple-info {
+  text-align: center;
+}
+
+.disciple-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #493737;
+  margin-bottom: 10px;
+}
+
+.disciple-description {
+  font-size: 16px;
+  color: #666;
+}
+
+.dialogue {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.bubble {
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  max-width: 80%;
+}
+
+.system-bubble {
+  background-color: #f0f0f0;
+  align-self: flex-start;
+}
+
+.user-bubble {
+  background-color: #C78F79;
+  color: #fff;
+  align-self: flex-end;
+}
+
+.original-text {
+  font-family: "SimSun", serif;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.footer {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 10px 10px;
+  background-color: #fff;
+  padding: 0 20px;
+}
+
+.action-button {
+  background-color: #493737;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.action-button:hover {
+  background-color: #1e795d;
+}
