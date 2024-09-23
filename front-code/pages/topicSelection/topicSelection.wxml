@@ -1,8 +1,8 @@
 <view class="container">
-  <view class="word-cloud" style="position: relative; left: 0rpx; top: 135rpx; width: 685rpx; height: 818rpx; display: block; box-sizing: border-box; background-color: #F5EFE6; border: 2px solid #284B63; border-radius: 15px;">
-    <text class="title" style="position: relative; left: 91rpx; top: 0rpx;font-family: '方正字迹-吕建德字体'; font-size: 28px;">请选择感兴趣的话题</text>
-    <text class="subtitle" style="position: relative; left: 105rpx; top: 0rpx;font-size: 18px;">\n选择 1 - 3 个你最感兴趣的主题</text>
-    <view class="topics" style="position: relative; left: 0rpx; top: 39rpx">
+  <view class="word-cloud" style="position: relative; left: 4rpx; top: -14rpx">
+    <text class="title">请选择感兴趣的话题</text>
+    <text class="subtitle">\n选择 1 - 3 个你最感兴趣的主题</text>
+    <view class="topics">
       <view class="topic {{item.selected? 'selected' : ''}}" 
             wx:for="{{topics}}" 
             wx:key="index" 
@@ -11,7 +11,7 @@
         {{item.name}}
       </view>
     </view>
-    <button class="confirm-btn" bindtap="confirmSelection" disabled="{{selectedCount === 0}}" style="position: relative; left: 0rpx; top: 85rpx;background-color: #493737; color: #fff; font-size: 20px; padding: 12px 35px; border-radius: 25px;">
+    <button class="confirm-btn" bindtap="confirmSelection" disabled="{{selectedCount === 0}}">
       确认选择 ({{selectedCount}}/3)
     </button>
   </view>

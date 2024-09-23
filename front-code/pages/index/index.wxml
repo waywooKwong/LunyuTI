@@ -1,5 +1,9 @@
-<view class="container" style="width: 747rpx; display: flex; box-sizing: border-box; height: 1447rpx">
-  <view class="title" style="font-family: '方正字迹-吕建德字体'; font-size: 32px;">欢迎使用论语性格测试</view>
-  <button class="start-btn" bindtap="onStart" style="width: 462rpx; height: 135rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx; background-color: #493737; color: #fff; font-size: 20px;">开始测试</button>
-  <view class="intro" style="width: 697rpx; display: block; box-sizing: border-box; font-size: 18px;">通过论语中的话题，了解你与孔子弟子的匹配程度。</view>
+<view class="book-container">
+  <view class="cover-page">
+    <view class="page-content">
+      <text class="book-subtitle">论语</text>
+      <text class="welcome-text">欢迎使用论语性格测试</text>
+      <button class="start-btn" bindtap="onStart">开始测试</button>
+    </view>
+  </view>
 </view>

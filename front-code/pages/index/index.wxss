@@ -1,27 +1,110 @@
-.container {
+.book-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 90vh;
+  height: 1054rpx;
+  background-color: #ffffff;
+  perspective: 1500px;
+  position: relative;
+}
+
+.cover-page {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #493737; /* 类似古旧木色边框 */
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  max-height: 800px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+  font-family: 'Georgia', serif;
+  left: -1rpx;
+  top: 65rpx;
+}
+
+
+
+.page-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  padding: 20px;
+  height: 100%;
+  padding: 40px;
   box-sizing: border-box;
-  background-color: #F5EFE6;
+  position: relative;
 }
 
-.title {
-  margin-bottom: 30px;
+.book-subtitle {
+  font-family: 'Georgia', serif;
+  font-size: 100px;
+  color: #666;
+  margin-bottom: 20px;
+  position: relative;
+  left: -191rpx;
+  top: -376rpx;
+  width: 231rpx;
+  height: 331rpx;
+  display: block;
+  box-sizing: border-box;
+}
+
+.welcome-text {
+  font-family: 'Georgia', serif;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  position: relative;
+  left: -3rpx;
+  top: -141rpx;
 }
 
 .start-btn {
+  width: 150px;
+  height: 50px;
+  background-color: #493737;
+  color: #fff;
+  font-family: 'Georgia', serif;
+  font-size: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  position: relative;
+  left: -6rpx;
+  top: 37rpx;
 }
 
 .start-btn:hover {
-  background-color: #493737;
+  background-color: #665555;
 }
 
-.intro {
-  text-align: center;
-  margin-top: 20px;
+/* 书脊效果 */
+.cover-page::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 10px;
+  height: 80%;
+  background-color: #493737;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 页码效果 */
+.cover-page::after {
+  content: '1';
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-family: 'Georgia', serif;
+  font-size: 14px;
+  color: #999;
 }
