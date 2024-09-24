@@ -1,8 +1,9 @@
 """
 22/9/2024
-论语角色prompt生成器
+论语角色prompt生成器,保存在Lunyu/all_prompts.json
 """
 import os
+import json
 os.environ["ZHIPUAI_API_KEY"] = "0e863acacdc09cad69cd7865fc3e0a28.mhYC6Yl7joh1dCZ5"
     # 20240731 20:55 weihua
     # new key: "6ac43a47c3fed6a70433a55108033202.OMB8LBLcgcz60x3q"
@@ -17,7 +18,7 @@ from langchain_core.prompts import PromptTemplate
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from typing import AsyncIterable, List
-import json
+
 
 model_name = "qwen2.5"  # 这里的 Lunyu 模型是 Ollama 基于 Qwen2.5 生成的
 
@@ -107,44 +108,46 @@ class PromptGenerator:
 
         # 发送给模型进行处理
         result=self.chat_model.invoke(prompt_str_input)
-        print(result.content)
-
-# agent = PromptGenerator()
-
-# @app.get("/stream")
-# async def stream_response():
-#     return StreamingResponse(agent.generate_prompt(
-#         name="孔子",
-#         dialogue_in_lunyu=[
-#             "三人行，必有我师焉。",
-#             "学而时习之，不亦说乎？",
-#             "吾日三省吾身。"
-#         ],
-#         historical_story="孔子周游列国传道，教导弟子。",
-#         scholarly_comments="孔子被誉为古代中国最伟大的思想家和教育家。"
-#     ), media_type='text/plain')
-
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run(app, host="0.0.0.0", port=8000)
-import json
+        return result.content
 
 json_path = "D:\WorkSpace\VScodeProject\LunYuDemo\log\WangPu\论语全角色对话.json"  # 使用原始字符串
 # json_path = "log\\WangPu\\论语全角色对话.json"  # 或使用双反斜杠
-
+all_prompts = []
 with open(json_path, 'r', encoding='utf-8') as f:
     data = json.load(f)
 
-name_to_extract = "子张"
-dialog=[]
-for entry in data:
-    if entry["name"] == name_to_extract:
-        contents = entry["contents"]
-        story=entry["story"]
-        comments=entry["comments"]
-        for item in contents:
-            dialog.append(item["dialog"])
-
-        
 model=PromptGenerator()
-model.generate_prompt(name_to_extract,dialog,story,comments)
+dialog=[]
+
+for entry in data:
+  
+   name=entry["name"]
+   contents = entry["contents"]
+   story=entry["story"]
+   comments=entry["comments"]
+   for item in contents:
+      dialog.append(item["dialog"])
+   print("----------------")
+   print("name:",name)
+ 
+   prompt=model.generate_prompt(name,dialog,story,comments)
+   print(prompt)
+   print("_______________________________________________________")
+   # 创建一个包含角色信息的字典
+   character_info = {
+        "name": name,
+        "overview": story,
+        "prompt": prompt
+    }
+    
+   all_prompts.append(character_info)  # 将角色信息添加到列表中
+
+
+output_path = "Lunyu/all_prompts.json"  # 输出文件路径
+with open(output_path, 'w', encoding='utf-8') as f:
+    json.dump(all_prompts, f, ensure_ascii=False, indent=4)
+
+print("所有角色信息已保存到", output_path)
+        
+#
+# 
