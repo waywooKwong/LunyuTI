@@ -22,7 +22,7 @@ content:
     3. Make model by Ollama - KuangWeihua
     4. frontend: design Output picture - LiQun
 
-date: 23/09/2024
+date: 22/09/2024
 place: online
 topic: Task alignment
 content:
@@ -30,3 +30,15 @@ content:
     1. load embedding models "m3e-base" in local "model\embedding"
     2. follow "model\ollama\ollama_part2_loadmodel.md" to build model
     3. run "code\langchain_demo.py" successfully
+
+
+date: 23/09/2024
+place: dormitory 1-608
+topic: Task alignment
+content: 
+    1. complete json, and prompt generate - WangPu
+    2. LDA / Gensim topic classification - QianCheng
+    3. Model prompt - KuangWeihua
+    4. Backend test - LiQun
+
+
