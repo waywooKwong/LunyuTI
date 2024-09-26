@@ -1,0 +1,9 @@
+<view class="book-container">
+  <view class="cover-page">
+    <view class="page-content">
+      <text class="book-subtitle">论语</text>
+      <text class="welcome-text">欢迎使用论语性格测试</text>
+      <button class="start-btn" bindtap="onStart">开始测试</button>
+    </view>
+  </view>
+</view>

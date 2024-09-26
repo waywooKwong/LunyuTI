@@ -1,0 +1,120 @@
+.container {
+  padding: 20px;
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1500px;
+  position: relative;
+  height: 1054rpx;
+  box-sizing: border-box;
+}
+
+.word-cloud {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #493737; /* 类似古旧木色边框 */
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  max-height: 800px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+  font-family: 'Georgia', serif;
+}
+
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #493737; /* 类似深褐色 */
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  position: relative;
+  left: 116rpx;
+  top: 150rpx;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #493737; 
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  left: 122rpx;
+  top: 187rpx;
+}
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+  left: 4rpx;
+  top: 349rpx;
+  width: 674rpx;
+  height: 379rpx;
+  box-sizing: border-box;
+}
+
+.topic {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #E8E8E8; 
+  border-radius: 20px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid #493737; 
+}
+
+.topic.selected {
+  background-color: #493737; 
+  color: #fff;
+}
+
+.confirm-btn {
+  background-color: #493737; 
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-size: 18px;
+  position: relative;
+  left: 2rpx;
+  top: 587rpx;
+}
+
+.confirm-btn[disabled] {
+  background-color: #CCC0B3; /* 类似旧米色 */
+  color: #999;
+  font-family: 'Georgia', serif;
+}
+
+/* 书脊效果 */
+.word-cloud::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 10px;
+  height: 80%;
+  background-color: #493737;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 页码效果 */
+.word-cloud::after {
+  content: '2';
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-family: 'Georgia', serif;
+  font-size: 14px;
+  color: #999;
+}
