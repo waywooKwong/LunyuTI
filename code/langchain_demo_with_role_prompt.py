@@ -145,7 +145,7 @@ for item in all_prompt:
     from langchain_core.prompts import PromptTemplate
 
     response_schema = [
-        ResponseSchema(name="answer", description=input_str),
+        ResponseSchema(name="answer", description="用论语的文言文文风回答"),
     ]
 
     output_parser = StructuredOutputParser.from_response_schemas(
@@ -173,7 +173,7 @@ for item in all_prompt:
         prompt_str_input = prompt_template.format(
             text_input=question, role_prompt=role_prompt
         )
-        output_completion: AIMessage = chat_model.invoke(input=prompt_str_input)
+        output_completion: AIMessage = retriever_chain.invoke(input=prompt_str_input)
         content = output_completion.content
         print("generating answer:", content)
         
