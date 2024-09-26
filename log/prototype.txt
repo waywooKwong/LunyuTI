@@ -4,7 +4,7 @@
 
 # 原型开发过程
 
-date: 18/09/2024
+date: 18/09/2024 21:00 - 22:00
 place: dormitory 1-608
 topic: work seperation based on pre-processed data
 content: 
@@ -13,7 +13,7 @@ content:
     3. customized model into "Lunyu model" - Kuang Weihua
     4. frontend: dialog bubble style, hierarchical two layers - LiQun
 
-date: 20/09/2024
+date: 20/09/2024 21:00 - 21:20
 place: dormitory 1-608
 topic: summary pre-processed data, and usage next step
 content:
@@ -22,7 +22,7 @@ content:
     3. Make model by Ollama - KuangWeihua
     4. frontend: design Output picture - LiQun
 
-date: 22/09/2024
+date: 22/09/2024 21:00 - 21:25
 place: online
 topic: Task alignment
 content:
@@ -32,7 +32,7 @@ content:
     3. run "code\langchain_demo.py" successfully
 
 
-date: 23/09/2024
+date: 23/09/2024 21:10 - 21:40
 place: dormitory 1-608
 topic: Task alignment
 content: 
@@ -41,4 +41,11 @@ content:
     3. Model prompt - KuangWeihua
     4. Backend test - LiQun
 
+date: 25/09/2024 20:30 - 20:50
+place: dormitory 1-608
+topic: risk management
+content:
+    talk feasibility of current idea,
+    give corresponding solution based on current work
+    as do not change main functions as possible
 
