@@ -1,15 +1,58 @@
 本文件记录项目原型开发过程的工作日志
+json
+{
+    "name":"角色名称"，
+    "contents":[
+        {
+            "dialog":"有该角色参与的对话原文",
+            "translation":"这句话的译文",
+            "theme":"出自论语哪一篇"
+        },
+        ...该角色参与的其他对话
+        
 
-# ... 前期准备略
+    ]
 
-# 原型开发过程
+}
+json
+{
+    "name":"子夏"，
+    "contents":[
+        {
+            "dialog":"子夏曰：“贤贤易色；事父母，能竭其力；事君，能致其身；与朋友交，言而有信。虽曰未学，吾必谓之学矣。”",
+            "translation":"子夏说：“尊敬有贤德的人，而不被外貌所迷惑；侍奉父母时，能尽全力；侍奉君主时，能献出自己的全部；与朋友交往时，言语要诚实守信。即使他没有读过书，我也必定会认为他是有学问的人。”"，
+            "theme":"学而篇"
 
-date: 09/18/2024
-place: dormitory 1-608
-topic: work seperation based on pre-processed data
-content: 
-    1. scratch content based on role "name"
-    2. scratch content based on question "word"
-    3. customized model into "Lunyu model"
-    4. frontend: dialog bubble style, hierarchical two layers
+        },
+        ...该角色参与的其他对话
+        
+
+    ]
     
+    
+
+}
+子夏 - 31 对话
+曾子 - 25 对话
+子贡 - 28 对话
+子路 - 24 对话
+颜渊 - 16 对话
+子张 - 20 对话
+冉子 - 5 对话
+孟懿子 - 1 对话 #不是孔子弟子
+孟武伯 - 1 对话 #不是孔子弟子
+子游 - 5 对话
+子禽 - 1 对话
+有子 - 3 对话
+南容 - 1 对话
+子贱 - 1 对话
+司马牛 - 2 对话
+冉有 - 3 对话
+季路 - 2 对话 #就是子路
+南宫适 - 1 对话 #不是孔子弟子
+师冕 - 1 对话 # 不是孔子弟子
+陈亢 - 2 对话 #就是子亢
+阳货 - 4 对话 # 不是孔子弟子
+卫公孙 - 1 对话# 不是孔子弟子
+叔孙武叔 - 1 对话# 不是孔子弟子
+陈子 - 2 对话# 不是孔子弟子
