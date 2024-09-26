@@ -49,3 +49,12 @@ content:
     give corresponding solution based on current work
     as do not change main functions as possible
 
+date: 26/09/2024 22:30 - 23:24
+place: dormitory 1-608
+topic: task divition
+content:
+    find proper topic-oriented classification methods
+    1. gensim by Lunyu Origin txt - KuangWeihua
+    2. gensim by Lunyu Transition - LiQun
+    3. transformers(Huggingface) - WangPu
+    4. LLM - QianCheng
