@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 22/09/2024 - v1 - weihua
 这是 langchain 获得每个角色对全部问题回答的链
@@ -10,7 +12,16 @@
 23/09/2024 - v2 - weihua
 这版在 input_str 中加入了一个 role_prompt 参数作为测试使用
 """
+import os
+import json
+os.environ["ZHIPUAI_API_KEY"] = "0e863acacdc09cad69cd7865fc3e0a28.mhYC6Yl7joh1dCZ5"
+    # 20240731 20:55 weihua
+    # new key: "6ac43a47c3fed6a70433a55108033202.OMB8LBLcgcz60x3q"
+    # old key: "43c5d0cda6ab08302d6db046469d7c6b.eCF9cwVy1tadDU1q"
+    # qiancheng: "72fea15b5fce38e0a81b2bb01e4903dd.wkhUuC4oAO5otOmY"
+from langchain_community.chat_models import ChatZhipuAI
 
+zhipuai_chat_model = ChatZhipuAI(model="glm-4")
 from langchain.chains import create_history_aware_retriever
 from langchain.chains.retrieval import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -76,7 +87,7 @@ history_prompt: ChatPromptTemplate = ChatPromptTemplate.from_messages(
     ]
 )
 history_chain = create_history_aware_retriever(
-    llm=chat_model, prompt=history_prompt, retriever=vector_retriever
+    llm=zhipuai_chat_model, prompt=history_prompt, retriever=vector_retriever
 )
 
 doc_prompt = ChatPromptTemplate.from_messages(
@@ -94,39 +105,23 @@ doc_prompt = ChatPromptTemplate.from_messages(
         ("user", "{input}"),
     ]
 )
-documents_chain = create_stuff_documents_chain(chat_model, doc_prompt)
+documents_chain = create_stuff_documents_chain(zhipuai_chat_model, doc_prompt)
 
 retriever_chain = create_retrieval_chain(history_chain, documents_chain)
 
 chat_history = []
 
 role_prompt = """
-你现在的角色是： 曾子
+你现在的角色是：
+子贱\n\n对话风格: 子贱之言语，简洁明快，既存论语诸贤之道，又显自家独到见解。其言辞质朴，不尚浮华，以理服人，常以短句阐明大义。\n\n价值观: 子贱秉承仁义，克己奉公，谦逊谨慎，重于道义，轻于名利。常以礼教导人，力求心行一致，不慕荣利，坚持正道。\n\n教学风格: 子贱既重理论，又重实践，常以身边事例启发学生思考，使其由浅入深，体会真实之理。\n\n哲学思想: 子贱强调仁义礼智信五常，认为此为君子立身行事之本。其治单父，行无为而治，倡导自治自理，信任民众，体现其仁政思想。\n\n典型对话: \n1. 子贱曰：“富哉言乎！舜有天下，选于众，举皋陶，不仁者远矣。汤有天下，选于众，举伊尹，不仁者远矣。”\n2. 子夏为莒父宰，问政，子曰：“无欲速，无见小利。欲速则不达，见小利则大事不成。”\n3. 子谓子贱曰：“君子哉若人！鲁无君子者，斯焉取斯？”\n\n互动方式: 子贱乐于与人交流，善于以启发式方式引导他人思考，使之自省自悟。对学生或同僚，既严谨又和蔼，深得众人敬爱。\n\n角色目标:\n短期目标：治单父，使地方自治自理，民众和睦相处。\n长期目标：践行仁义，推广仁政，使天下太平，百姓安居乐业。
 
-        - 对话风格: 文言文风格，简洁而富有哲理。常以三省吾身、修身齐家治国平天下为训导，语言精炼，意蕴深远。
-
-        - 价值观: 注重孝道、忠信和自我反省；强调仁义礼智信的统一与和谐。
-
-        - 教学风格: 启发式教学，善于通过提问引导学生思考。曾子以身作则，注重行为示范，并鼓励弟子进行内心自省。
-
-        - 哲学思想: 仁以为己任，忠恕之道；提倡孝悌，强调个人修养与社会秩序的和谐统一。
-
-        - 典型对话: 
-            - 曾子曰：“吾日三省吾身：为人谋而不忠乎？与朋友交而不信乎？传不习乎？”
-            - 曾子曰：“慎终追远，民德归厚矣。”
-            - 曾子有疾，召门弟子曰：“启予足，启予手。《诗》云：‘战战兢兢，如临深渊，如履薄冰。’而今而后，吾知免夫，小子！”
-
-        - 互动方式: 在与学生的交流中，曾子善于倾听并给予适当的指导和鼓励；在处理道德困境时，他注重内心自省，并引导弟子们思考行为的正确性。
-
-        - 角色目标:
-            - 短期目标：培养弟子们的道德品质和社会责任感。
-            - 长期目标：推动孝悌之道的传承与弘扬，使之成为社会伦理的重要基石。
             
 请用你的风格回答这个问题：
 """
 
 # 特定的输出格式字符串
 input_str = """
+
 {role_prompt}
 
 {text_input}
@@ -138,7 +133,7 @@ from langchain.output_parsers import ResponseSchema, StructuredOutputParser
 from langchain_core.prompts import PromptTemplate
 
 response_schema = [
-    ResponseSchema(name="answer", description=input_str),
+    ResponseSchema(name="answer", description="对问题的个性化回答"),
 ]
 
 output_parser = StructuredOutputParser.from_response_schemas(
@@ -167,6 +162,6 @@ for question in questions:
     prompt_str_input = prompt_template.format(
         text_input=question, role_prompt=role_prompt
     )
-    output_completion: AIMessage = chat_model.invoke(input=prompt_str_input)
+    output_completion: AIMessage = zhipuai_chat_model.invoke(input=prompt_str_input)
     content = output_completion.content
     print("answer:", content)
