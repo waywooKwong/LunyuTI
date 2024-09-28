@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from transformers import pipeline
 import os
 
@@ -8,10 +9,16 @@ os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7890'
 os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:7890'
 
 # 加载文本摘要模型
-summarizer = pipeline("summarization")
+summarizer = pipeline("summarization",  device="cuda")
+
+
+
 
 # 输入句子
-text = "你想要概括的句子。"
+text = """
+樊迟问什么是仁，孔子说：“处事要恭敬，做事要敬重他人，与人交往要忠诚。即使是异国他乡的人，也不能抛弃这些品德。
+
+"""
 
 # 生成主题摘要
 summary = summarizer(text, max_length=20, min_length=5, do_sample=False)

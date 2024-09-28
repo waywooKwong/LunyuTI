@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 22/09/2024 - v1 - weihua
 这是 langchain 获得每个角色对全部问题回答的链
@@ -13,7 +15,16 @@
 23/09/2024 - v3 - weihua
 接入 role prompt 令每一个角色对问题进行回答
 """
+import os
+import json
+os.environ["ZHIPUAI_API_KEY"] = "0e863acacdc09cad69cd7865fc3e0a28.mhYC6Yl7joh1dCZ5"
+    # 20240731 20:55 weihua
+    # new key: "6ac43a47c3fed6a70433a55108033202.OMB8LBLcgcz60x3q"
+    # old key: "43c5d0cda6ab08302d6db046469d7c6b.eCF9cwVy1tadDU1q"
+    # qiancheng: "72fea15b5fce38e0a81b2bb01e4903dd.wkhUuC4oAO5otOmY"
+from langchain_community.chat_models import ChatZhipuAI
 
+zhipuai_chat_model = ChatZhipuAI(model="glm-4")
 from langchain.chains import create_history_aware_retriever
 from langchain.chains.retrieval import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
