@@ -58,3 +58,17 @@ content:
     2. gensim by Lunyu Transition - LiQun
     3. transformers(Huggingface) - WangPu
     4. LLM - QianCheng
+
+date: 28/09/2024 22:10 - 23:02
+place: dormitory 1-608
+topic: task divition
+content:
+    - check topic classification result, finally choose LLM by WangPu
+    - task classification:
+    1. based on QA json, run prototype & sentence similarity - KuangWeihua
+    2. adjust QA json & news api, prototype - WangPu
+    3. adjust topic json & get frontend alignment - QianCheng
+    4. frontend design & task alignment - LiQun
+    - according to the rotation principle, 
+        Desginer & Leader with moved to current frontend charger LiQun 
+        after prototype finished. 
