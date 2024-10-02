@@ -13,6 +13,11 @@
 
 23/09/2024 - v3 - weihua
 接入 role prompt 令每一个角色对问题进行回答
+
+02/10/2024 - weihua
+根据 QA_with_topic.json 每个问题
+匹配 topic.json 中的每条目角色回答
+生成对对应问题的回答
 """
 
 from langchain.chains import create_history_aware_retriever
@@ -49,117 +54,148 @@ embeddings = HuggingFaceEmbeddings(
 )
 print("embedding loading:", embeddings.model_name)
 
-# # 分角色加载内容
-# ## 1.3 向量库加载
-# # retriever链中预加载的文本
+# 分角色加载内容
+## 1.3 向量库加载
+# retriever链中预加载的文本
 
 from document import Document
 from langchain_community.vectorstores import Qdrant
-
-docs_preload = []
-prompt = """
-    现在讨论的主题为：君子的憎恶，
-    子贡对于这个话题曾发表的见解为：
-    "恶徼以为知者，恶不孙以为勇者，恶讦以为直者。"
-    """
-role_overview = [
-    "端木赐（公元前520年—公元前456年），复姓端木，字子贡。儒商鼻祖，春秋末年卫国黎（今河南省鹤壁市浚县）人。孔子的得意门生，儒家杰出代表，孔门十哲之一，善于雄辩，且有干济才，办事通达，曾任鲁国、卫国的丞相。还善于经商，是孔子弟子中的首富。“端木遗风”指子贡遗留下来的诚信经商的风气，成为民间信奉的财神。子贡善货殖，有“君子爱财，取之有道”之风，为后世商界所推崇。《论语》中对其言行记录较多，《史记》对其评价颇高。子贡死后，唐开元二十七年追封为“黎侯”，宋大中祥符二年加封为“黎公”，明嘉靖九年改称“先贤端木子”。"
-]
-docs_preload.append(
-    Document(page_content=str(role_overview), metadata={"label": "role_overview"})
-)
-
-vector = Qdrant.from_documents(
-    documents=docs_preload,
-    embedding=embeddings,
-    location=":memory:",
-    collection_name="preload_docs",
-)
-vector_retriever = vector.as_retriever()
-
-history_prompt: ChatPromptTemplate = ChatPromptTemplate.from_messages(
-    messages=[
-        MessagesPlaceholder(variable_name="chat_history"),
-        ("user", """需求的描述是{input}"""),
-        (
-            "user",
-            "Given the introduction in docs, generate answer in corresponding view",
-        ),
-    ]
-)
-history_chain = create_history_aware_retriever(
-    llm=chat_model, prompt=history_prompt, retriever=vector_retriever
-)
-
-doc_prompt = ChatPromptTemplate.from_messages(
-    [
-        (
-            "system",
-            """
-        你现在是孔子门徒，\n
-        你会根据你的人物事迹和性格特征，对事物发表你的看法。\n
-        现在我会与你对话，请你用《论语》中文言文风格与我交流\n
-        {context}
-        """,
-        ),
-        MessagesPlaceholder(variable_name="chat_history"),
-        ("user", "{input}"),
-    ]
-)
-documents_chain = create_stuff_documents_chain(chat_model, doc_prompt)
-
-retriever_chain = create_retrieval_chain(history_chain, documents_chain)
-
-chat_history = []
-
-role_prompt = f"""
-你目前的角色设定是：{prompt},\n
-
-请用你的风格与我对话
-"""
-
-# 特定的输出格式字符串
-input_str = """
-{role_prompt}\n
-
-这是我的问题：
-{text_input}\n
-
-please strictly answer in format: 
-{format_instruction}
-"""
-
-from langchain.output_parsers import ResponseSchema, StructuredOutputParser
-from langchain_core.prompts import PromptTemplate
-
-response_schema = [
-    ResponseSchema(name="answer", description="用论语的文言文文风回答"),
-]
-
-output_parser = StructuredOutputParser.from_response_schemas(
-    response_schemas=response_schema
-)
-
-format_instruction = output_parser.get_format_instructions()
-prompt_template = PromptTemplate.from_template(
-    template=input_str,
-    partial_variables={"format_instruction": format_instruction},
-)
-
 import json
 
-question = """
-    当今时代出现了这样的社会事件：
-        有些人以打假作为自己的职业，专门揭发制假卖假的企业
-        
-    请严格依据子贡发表过的见解，对上述事件做出评价
 """
-print("processing now, question:", question)
+QA_with_topic.json 每条目加载
+每一条目："theme", "question", "answer", "source", "translation"
+"""
+json_path = "data\QA_with_topic.json"
+with open(json_path, "r", encoding="utf-8") as file:
+    topic_based_data = json.load(file)
 
-# question 作为 text_input
-prompt_str_input = prompt_template.format(text_input=question, role_prompt=role_prompt)
-output_completion: AIMessage = retriever_chain.invoke(
-    {"input": prompt_str_input, "chat_history": chat_history}
-)
-content = output_completion["answer"]
-print("generating answer:", content)
+for item in topic_based_data:
+    topic = item["theme"]
+    print("\ntopic:", topic)
+    question = item["question"]
+    print("question:", question)
+
+    topic_json_path = "data\\topic.json"
+    with open(topic_json_path, "r", encoding="utf-8") as file:
+        topic_data = json.load(file)
+    
+    # 从 topic.json 中提取对应主题的文本
+    for item in topic_data:
+        if item["class"] == topic:
+            contents = item["contents"]
+            for content in contents:
+                # 人物名称
+                role = content["name"]
+                # 人物对该主题发表过的见解
+                dialog = content["dialog"]
+                prompt = f"""
+                现在讨论的主题为：{topic},
+                有人提出这样一个问题：{question},
+                论语中人物：{role},
+                曾经对这个话题发表过见解：{dialog}
+                """
+
+                # 加载人物相关描述的数据
+                role_json_path = "data\\role.json"
+                with open(role_json_path, "r", encoding="utf-8") as file:
+                    role_data = json.load(file)
+
+                for role_item in role_data:
+                    if role_item["name"] == role:
+                        role_overview = role_item["story"]
+                        role_comments = role_item["comments"]
+                        docs_preload = []
+                
+                        docs_preload.append(Document(page_content=str(role_overview), metadata={"label": "role_overview"}))
+                        docs_preload.append(Document(page_content=str(role_comments), metadata={"label": "role_comments"}))
+                        
+                        # 向量库加载角色信息的描述
+                        vector = Qdrant.from_documents(
+                        documents=docs_preload,
+                        embedding=embeddings,
+                        location=":memory:",
+                        collection_name="preload_docs",)
+                        
+                        vector_retriever = vector.as_retriever()
+
+                        history_prompt: ChatPromptTemplate = ChatPromptTemplate.from_messages(
+                            messages=[
+                                MessagesPlaceholder(variable_name="chat_history"),
+                                ("user", """需求的描述是{input}"""),
+                                (
+                                    "user",
+                                    "Given the introduction in docs, generate answer in corresponding view",
+                                ),
+                            ]
+                        )
+                        history_chain = create_history_aware_retriever(
+                            llm=chat_model, prompt=history_prompt, retriever=vector_retriever
+                        )
+
+                        doc_prompt = ChatPromptTemplate.from_messages(
+                            [
+                                (
+                                    "system",
+                                    """
+                                你现在是孔子门徒，\n
+                                你会根据你的人物事迹和性格特征，对事物发表你的看法。\n
+                                现在我会与你对话，请你用《论语》中文言文风格与我交流\n
+                                {context}
+                                """,
+                                ),
+                                MessagesPlaceholder(variable_name="chat_history"),
+                                ("user", "{input}"),
+                            ]
+                        )
+                        documents_chain = create_stuff_documents_chain(chat_model, doc_prompt)
+                        retriever_chain = create_retrieval_chain(history_chain, documents_chain)
+
+                        chat_history = []
+                        role_prompt = f"""
+                        你目前的角色设定是：
+                        {prompt}, 
+                        请用你的风格与我对话，发表你对问题的见解
+                        """
+                        print("role_prompt:",role_prompt)
+
+                        # 特定的输出格式字符串
+                        input_str = """
+                        {role_prompt}\n
+
+                        please strictly answer in format: 
+                        {format_instruction}
+                        """
+
+                        from langchain.output_parsers import ResponseSchema, StructuredOutputParser
+                        from langchain_core.prompts import PromptTemplate
+
+                        response_schema = [
+                            ResponseSchema(name="answer", description="用论语的文言文文风回答"),
+                        ]
+
+                        output_parser = StructuredOutputParser.from_response_schemas(
+                            response_schemas=response_schema
+                        )
+
+                        format_instruction = output_parser.get_format_instructions()
+                        prompt_template = PromptTemplate.from_template(
+                            template=input_str,
+                            partial_variables={"format_instruction": format_instruction},
+                        )
+
+                        prompt_str_input = prompt_template.format(role_prompt=role_prompt)
+                        output_completion: AIMessage = retriever_chain.invoke(
+                            {"input": prompt_str_input, "chat_history": chat_history}
+                        )
+                        content = output_completion["answer"]
+                        print("generating answer:", content)
+                        
+                        file_path = f"data\\role_answer\{timestamp}_answer.txt"
+                        with open(file_path,'+a',encoding='utf-8') as file:
+                            file.write(f"role_prompt:{role_prompt}")
+                            file.write(f"generating answer:{content}\n\n")
+                            
+                        print("==== ====\n")
+        # else:
+        #     print("Not find content concerning topic")
