@@ -1,0 +1,103 @@
+{
+    "searchParameters": {
+        "q": "国内外热门新闻,只在国内新闻网上找",
+        "gl": "us",
+        "hl": "en",
+        "type": "news",
+        "num": 10,
+        "engine": "google"
+    },
+    "news": [
+        {
+            "title": "美国热门APP多次发布假新闻 中国背景引发关注",
+            "link": "https://www.dw.com/zh/%E7%BE%8E%E5%9B%BD%E7%83%AD%E9%97%A8app%E5%A4%9A%E6%AC%A1%E5%8F%91%E5%B8%83%E5%81%87%E6%96%B0%E9%97%BB-%E4%B8%AD%E5%9B%BD%E8%83%8C%E6%99%AF%E5%BC%95%E5%8F%91%E5%85%B3%E6%B3%A8/a-69309973",
+            "snippet": "路透社报道称，美国热门新闻聚合应用NewsBreak使用AI制作不实新闻。该公司的中国背景引发关注。美国议员呼吁对NewsBreak进行更严格审查。",
+            "date": "3 months ago",
+            "source": "DW",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNlhMS_SLSTcfXF483WWN3YFoz2f8-IKXt-4amu-OKtwMzFVAemZyx_lNHEg&s",
+            "position": 1
+        },
+        {
+            "title": "爆款游戏《黑神话：悟空》的成功与争议",
+            "link": "https://www.bbc.com/zhongwen/simp/chinese-news-69296885",
+            "snippet": "一只拟人化的猴子，以及禁止“宣传女性主义”的行动，过去一周在中国掀起了电子游戏界的狂潮。这发生中国有史以来最成功的冠军作品《黑神话：悟空》发布...",
+            "date": "1 month ago",
+            "source": "BBC",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4U8b9ckOsCGDFUyPeU2UPcrRjx9fGGH2cW4-Vg4DuCizDe-5O78w93dHp9g&s",
+            "position": 2
+        },
+        {
+            "title": "美国议员们因中国来源要求审查NewsBreak应用",
+            "link": "https://www.voachinese.com/a/newsbreak-scrutiny-called-for-20240608/7648303.html",
+            "snippet": "三名美国议员要求对美国热门新闻聚合应用NewsBreak进行更加严格的审查，路透社之前报道，它有中国的来源，使用人工智能工具来制作假新闻。",
+            "date": "3 months ago",
+            "source": "美国之音",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg-cRTG6dcfsDpGVna2IfKG2DOJMle4c_a8l1bVdjt6NsrNMNcTt55XOmqgA&s",
+            "position": 3
+        },
+        {
+            "title": "中国网络文明大会“e”起聚焦互联网热点",
+            "link": "https://news.cctv.com/2024/08/30/ARTIOa5XvtYQluD0TCEZiM6F240830.shtml",
+            "snippet": "提起网络文明，你想起了什么？你最关心的是什么？是人工智能等新技术的发展，还是网络信息的真实可信，是个人信息安全的保护，还是网络时代下对未成年人成长...",
+            "date": "1 month ago",
+            "source": "央视网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvgWiNGyMkLQCJ4jqbNRSDqgi8Mj6uBp-v8GvrF9S4d0ppv9s1U8sFdmi2JQ&s",
+            "position": 4
+        },
+        {
+            "title": "美議員籲嚴查原產中國的熱門新聞App",
+            "link": "https://www.epochtimes.com/gb/24/6/8/n14266569.htm",
+            "snippet": "三名美国议员呼吁政府加强对美国下载量最大的新闻应用程序“NewsBreak App”的审查。尽管该公司与中国母公司断绝了关系，仍与中国有着千丝万缕的联系。",
+            "date": "3 months ago",
+            "source": "大紀元",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDMkteloQRiE2rly6zKp52Q3MXKSpIs6rj8PsLXAUI-bhXDwl_oztTjknDpQ&s",
+            "position": 5
+        },
+        {
+            "title": "中国移动算网大脑实现规模商用",
+            "link": "http://aastocks.com/sc/stocks/news/aafn-con/GLH1710602L/popular-news/GLH",
+            "snippet": "9月28日｜在2024中国算力大会“协同共建，打造算力产业链”主论坛上，中国移动宣布算网大脑规模商用。中国移动打造的“算网大脑”系统，旨在通过对算网资源的...",
+            "date": "1 week ago",
+            "source": "AASTOCKS.com",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqjb_qlXLczGzqfd-RYBLz8UcgN5ur8PLW0T5lNkqeCQTa7hWDVoih8jFFZg&s",
+            "position": 6
+        },
+        {
+            "title": "喧嚣过后，如何正确“打开”野生动物热点新闻",
+            "link": "http://www.cenews.com.cn/news.html?aid=1110359",
+            "snippet": "《哈尔滨的白狐已经熬出黑眼圈》《神奇动物齐聚哈尔滨“宠粉”》，看到这样的新闻标题，你是会为尔滨的爆火感到激动，还是会为从未见过的动物心动？",
+            "date": "8 months ago",
+            "source": "中国环境网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCrG2EuT0PTV1CAzuCwTnbvFfyp0wCkGlBwsniYG_7OPbFxNLSyFKBitIQZw&s",
+            "position": 7
+        },
+        {
+            "title": "中国首次成为印度大选的热门议题",
+            "link": "https://www.voachinese.com/a/millions-of-indian-votes-to-choose-a-new-government-20240419/7577549.html",
+            "snippet": "在乌塔尔·普拉德甘邦凯拉纳的伊斯兰学校外，夏米玛·卡图恩正在排着长队等待。她激动地准备投下她的第一张选票，参加印度的全国大选。在这场世界最大规模...",
+            "date": "5 months ago",
+            "source": "美国之音",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgId79bIVNfCrxogYNQZLwoVScqxo7x4d8cdTNLRkxt2cENV72B4NhRoTqEw&s",
+            "position": 8
+        },
+        {
+            "title": "美热门新闻App错误百出 AI写新闻像在编小说 - 国内 - 求真 - 最新文章",
+            "link": "https://www.sinchew.com.my/news/20240606/nation/5663241",
+            "snippet": "布里奇顿警方12月27日在脸书发声明驳斥当地发生枪案的报道，并斥卖该报道是使用AI写作的文章。（图取自nj1015.com）（纽约6日综合电）中央社引述英媒报道，...",
+            "date": "3 months ago",
+            "source": "Sin Chew Daily",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5nCyvwDBZvTGwVnudjq6Ti5jDIhVFqznuySXLXMVOgjIxBGKjXbOCPtS-DQ&s",
+            "position": 9
+        },
+        {
+            "title": "【2020盤點】中國十大網絡熱點新聞（上）",
+            "link": "https://www.ntdtv.com/gb/2020/12/27/a103018719.html",
+            "snippet": "一场史无前例的大瘟疫让全世界人陷入灾难中，疫情诡谲莫测令人窒息。梳理今年网民关注的焦点，我们惊奇地发现中共是如何做到将疫情“消灭在萌芽状态”，...",
+            "date": "45 months ago",
+            "source": "新唐人電視台",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLWQU_Ay1ctiuHUpfTT53_w82USvFpxxzRemFSpgbxmccOmn6stIV9n6IykQ&s",
+            "position": 10
+        }
+    ],
+    "credits": 1
+}

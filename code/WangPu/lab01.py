@@ -20,6 +20,8 @@ name="子贡"
 theme=""
 
 json_path = "D:\WorkSpace\VScodeProject\LunYuDemo\log\WangPu\论语全角色对话.json"  # 使用原始字符串
+
+# json_path = "D:\WorkSpace\VScodeProject\LunYuDemo\log\WangPu\论语全角色对话.json"  # 使用原始字符串
 # json_path = "log\\WangPu\\论语全角色对话.json"  # 或使用双反斜杠
 data_dicts = []  # 用于存储所有的字典
 sentences=[]
@@ -37,6 +39,39 @@ for entry in data:
    for item in contents:
         sentences.append(item["translation"])
         str=item["dialog"]
+        # 论语对话主题
+        # prompt=f"""
+        #     分析以下论语句子\n
+        #     {str}\n
+        #     从以下20个给定主题中选出来最符合该句子的主题：\n
+        #     贤者的品质\n
+        #     孝道的理解\n
+        #     美与艺术\n
+        #     为人处世的原则\n
+        #     对生死的看法\n
+        #     仁爱与智慧\n
+        #     执政之道\n
+        #     学习与志向\n
+        #     人际关系\n
+        #     君子的修养\n
+        #     道德与礼仪\n
+        #     责任与担当\n
+        #     自我反省\n
+        #     教育与教导\n
+        #     对友谊的看法\n
+        #     权力与责任\n
+        #     信任与信用\n
+        #     道德修养\n
+        #     以德治国\n
+        #     社会和谐\n
+        #     注意：只需选出主题即可，不需要多余的内容!!!!!!!!\n
+        #     不超过7个字!!!\n
+        #     最多选2个，最好只选一个\n
+        #     严格遵守以上规则
+
+
+        # """
+        # 问题主题
         prompt=f"""
             分析以下论语句子\n
             {str}\n
@@ -69,6 +104,8 @@ for entry in data:
 
         """
 
+
+        
         theme=zhipuai_chat_model.invoke(prompt).content
         data_dict = {
             "dialog": item["dialog"],
