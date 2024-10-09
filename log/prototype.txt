@@ -72,3 +72,18 @@ content:
     - according to the rotation principle, 
         Desginer & Leader with moved to current frontend charger LiQun 
         after prototype finished. 
+
+date: 09/10/2024 20:41 - 22:09
+place: dormitory 1-608
+topic: task divition
+target: 
+    1. prototype demo plan
+    2. api func alignment
+        - classification duty 
+        - divide frontend & backend
+    3. similarity function
+content:
+    1. database design and interface - KuangWeihua
+    2. topic & question interface, News content - WangPu
+    3. frontend UI design - QianCheng
+    4. frontend interface, similarity comparation - LiQun
