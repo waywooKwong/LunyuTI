@@ -87,3 +87,15 @@ content:
     2. topic & question interface, News content - WangPu
     3. frontend UI design - QianCheng
     4. frontend interface, similarity comparation - LiQun
+
+date: 11/10/2024 22:10 - 22:50
+place: dormitory 1-608
+topic: task divition
+target: 
+    1. database design alignment
+    2. task assignment
+content:
+    1. database interface design - KuangWeihua
+    2. News json preparation & db running - WangPu
+    3. frontend prototype interface docs - QianCheng
+    4. similarity comparation interface - LiQun

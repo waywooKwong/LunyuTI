@@ -45,7 +45,9 @@ r = redis.StrictRedis(host="localhost", port=6379, db=4, decode_responses=True)
 
 
 # 修改插入数据的函数，插入后确认数据
-def insert_data_redis(topic, question, question_translation, role, role_dialog, answer):
+def insert_data_redis(
+    topic, question, question_translation, role, role_dialog, answer, answer_translation
+):
     # 使用 Redis 的 INCR 自增编号
     id = r.incr("entry_id")
 
@@ -59,6 +61,7 @@ def insert_data_redis(topic, question, question_translation, role, role_dialog, 
             "role": role,
             "role_dialog": role_dialog,
             "answer": answer,
+            "answer_translation": answer_translation,
         },
     )
     print(f"Data inserted with ID: {id}")
@@ -226,6 +229,10 @@ for item in topic_based_data:
                                 name="answer",
                                 description="用论语的文言文文风回答, 局内标点符号用中文全角",
                             ),
+                            ResponseSchema(
+                                name="answer_translation",
+                                description="上述论语文言文回答的现代文翻译, 局内标点符号用中文全角",
+                            ),
                         ]
 
                         output_parser = StructuredOutputParser.from_response_schemas(
@@ -247,19 +254,35 @@ for item in topic_based_data:
                             {"input": prompt_str_input, "chat_history": chat_history}
                         )
                         content = output_completion["answer"]
-                        print("generating answer:", content)
+                        # print("generating answer:", content)
 
                         # 去除开头和结尾的代码块标记
                         json_str = content.strip("```json\n").strip("```")
-                        print("json_str:", json_str)
-                        
+                        # print("json_str:", json_str)
 
-                        # 解析 JSON 字符串
-                        content_processed = json.loads(json_str)
+                        # 删除 {""}
+                        content_processed = re.sub(
+                            r'[{}"“” ]+', "", json_str
+                        )  # 删除 '{' 和 '"' 符号
+                        # print("cleaned_data:", content_processed)
 
-                        # 提取 answer 的内容
-                        answer_content = content_processed.get("answer", "")
-                        print("answer_content:", answer_content)
+                        # 提取 answer: 后面到 answer_translation: 之间的内容
+                        start_index = content_processed.find("answer:") + len("answer:")
+                        end_index = content_processed.find("answer_translation:")
+                        answer_part = content_processed[
+                            start_index:end_index
+                        ].strip()  # 去掉前后空格
+
+                        # 提取 answer_translation: 后的内容
+                        start_index_translation = content_processed.find(
+                            "answer_translation:"
+                        ) + len("answer_translation:")
+                        answer_translation = content_processed[
+                            start_index_translation:
+                        ].strip()  # 去掉前后空格
+
+                        print("Answer Part:", answer_part)
+                        print("Answer Translation:", answer_translation)
 
                         file_path = f"data\\role_answer\{timestamp}_answer.txt"
                         with open(file_path, "+a", encoding="utf-8") as file:
@@ -273,7 +296,8 @@ for item in topic_based_data:
                         问题现代文翻译 question_translation : {question_translation}
                         人物 role : {role}
                         人物对相关主题发表过的见解 role_dialog : {dialog}
-                        模型生成人物的回答 answer : {answer_content}
+                        模型生成人物的回答（文言文） answer : {answer_content}
+                        人物回答的现代文翻译 answer_translation: {answer_translation}
                         """
                         # 插入数据示例
                         insert_data_redis(
@@ -282,7 +306,8 @@ for item in topic_based_data:
                             question_translation=question_translation,
                             role=role,
                             role_dialog=dialog,
-                            answer=answer_content,
+                            answer=answer_part,
+                            answer_translation=answer_translation,
                         )
 
                         print("==== ====\n")
