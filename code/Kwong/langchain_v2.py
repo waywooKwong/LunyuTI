@@ -37,6 +37,33 @@ import datetime
 # 标记时间戳，便于文件命名于标定时间
 timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 
+import redis
+
+# 连接 Redis 数据库
+# 默认 db=0, 这里使用 db=4, 避免与本地的 db 冲突
+r = redis.StrictRedis(host="localhost", port=6379, db=4, decode_responses=True)
+
+
+# 修改插入数据的函数，插入后确认数据
+def insert_data_redis(topic, question, question_translation, role, role_dialog, answer):
+    # 使用 Redis 的 INCR 自增编号
+    id = r.incr("entry_id")
+
+    # 使用 hset 插入数据
+    r.hset(
+        f"item:{id}",
+        mapping={
+            "topic": topic,
+            "question": question,
+            "question_translation": question_translation,
+            "role": role,
+            "role_dialog": role_dialog,
+            "answer": answer,
+        },
+    )
+    print(f"Data inserted with ID: {id}")
+
+
 # 1. LangChain RAG 流程
 
 ## 1.1 设定选择模型，这里使用 ChatOllama
@@ -61,6 +88,7 @@ print("embedding loading:", embeddings.model_name)
 from document import Document
 from langchain_community.vectorstores import Qdrant
 import json
+import re
 
 """
 QA_with_topic.json 每条目加载
@@ -74,12 +102,13 @@ for item in topic_based_data:
     topic = item["theme"]
     print("\ntopic:", topic)
     question = item["question"]
+    question_translation = item["translation"]
     print("question:", question)
 
     topic_json_path = "data\\topic.json"
     with open(topic_json_path, "r", encoding="utf-8") as file:
         topic_data = json.load(file)
-    
+
     # 从 topic.json 中提取对应主题的文本
     for item in topic_data:
         if item["class"] == topic:
@@ -106,31 +135,46 @@ for item in topic_based_data:
                         role_overview = role_item["story"]
                         role_comments = role_item["comments"]
                         docs_preload = []
-                
-                        docs_preload.append(Document(page_content=str(role_overview), metadata={"label": "role_overview"}))
-                        docs_preload.append(Document(page_content=str(role_comments), metadata={"label": "role_comments"}))
-                        
+
+                        docs_preload.append(
+                            Document(
+                                page_content=str(role_overview),
+                                metadata={"label": "role_overview"},
+                            )
+                        )
+                        docs_preload.append(
+                            Document(
+                                page_content=str(role_comments),
+                                metadata={"label": "role_comments"},
+                            )
+                        )
+
                         # 向量库加载角色信息的描述
                         vector = Qdrant.from_documents(
-                        documents=docs_preload,
-                        embedding=embeddings,
-                        location=":memory:",
-                        collection_name="preload_docs",)
-                        
+                            documents=docs_preload,
+                            embedding=embeddings,
+                            location=":memory:",
+                            collection_name="preload_docs",
+                        )
+
                         vector_retriever = vector.as_retriever()
 
-                        history_prompt: ChatPromptTemplate = ChatPromptTemplate.from_messages(
-                            messages=[
-                                MessagesPlaceholder(variable_name="chat_history"),
-                                ("user", """需求的描述是{input}"""),
-                                (
-                                    "user",
-                                    "Given the introduction in docs, generate answer in corresponding view",
-                                ),
-                            ]
+                        history_prompt: ChatPromptTemplate = (
+                            ChatPromptTemplate.from_messages(
+                                messages=[
+                                    MessagesPlaceholder(variable_name="chat_history"),
+                                    ("user", """需求的描述是{input}"""),
+                                    (
+                                        "user",
+                                        "Given the introduction in docs, generate answer in corresponding view",
+                                    ),
+                                ]
+                            )
                         )
                         history_chain = create_history_aware_retriever(
-                            llm=chat_model, prompt=history_prompt, retriever=vector_retriever
+                            llm=chat_model,
+                            prompt=history_prompt,
+                            retriever=vector_retriever,
                         )
 
                         doc_prompt = ChatPromptTemplate.from_messages(
@@ -148,8 +192,12 @@ for item in topic_based_data:
                                 ("user", "{input}"),
                             ]
                         )
-                        documents_chain = create_stuff_documents_chain(chat_model, doc_prompt)
-                        retriever_chain = create_retrieval_chain(history_chain, documents_chain)
+                        documents_chain = create_stuff_documents_chain(
+                            chat_model, doc_prompt
+                        )
+                        retriever_chain = create_retrieval_chain(
+                            history_chain, documents_chain
+                        )
 
                         chat_history = []
                         role_prompt = f"""
@@ -157,7 +205,7 @@ for item in topic_based_data:
                         {prompt}, 
                         请用你的风格与我对话，发表你对问题的见解
                         """
-                        print("role_prompt:",role_prompt)
+                        print("role_prompt:", role_prompt)
 
                         # 特定的输出格式字符串
                         input_str = """
@@ -167,11 +215,17 @@ for item in topic_based_data:
                         {format_instruction}
                         """
 
-                        from langchain.output_parsers import ResponseSchema, StructuredOutputParser
+                        from langchain.output_parsers import (
+                            ResponseSchema,
+                            StructuredOutputParser,
+                        )
                         from langchain_core.prompts import PromptTemplate
 
                         response_schema = [
-                            ResponseSchema(name="answer", description="用论语的文言文文风回答"),
+                            ResponseSchema(
+                                name="answer",
+                                description="用论语的文言文文风回答, 局内标点符号用中文全角",
+                            ),
                         ]
 
                         output_parser = StructuredOutputParser.from_response_schemas(
@@ -181,21 +235,56 @@ for item in topic_based_data:
                         format_instruction = output_parser.get_format_instructions()
                         prompt_template = PromptTemplate.from_template(
                             template=input_str,
-                            partial_variables={"format_instruction": format_instruction},
+                            partial_variables={
+                                "format_instruction": format_instruction
+                            },
                         )
 
-                        prompt_str_input = prompt_template.format(role_prompt=role_prompt)
+                        prompt_str_input = prompt_template.format(
+                            role_prompt=role_prompt
+                        )
                         output_completion: AIMessage = retriever_chain.invoke(
                             {"input": prompt_str_input, "chat_history": chat_history}
                         )
                         content = output_completion["answer"]
                         print("generating answer:", content)
+
+                        # 去除开头和结尾的代码块标记
+                        json_str = content.strip("```json\n").strip("```")
+                        print("json_str:", json_str)
                         
+
+                        # 解析 JSON 字符串
+                        content_processed = json.loads(json_str)
+
+                        # 提取 answer 的内容
+                        answer_content = content_processed.get("answer", "")
+                        print("answer_content:", answer_content)
+
                         file_path = f"data\\role_answer\{timestamp}_answer.txt"
-                        with open(file_path,'+a',encoding='utf-8') as file:
+                        with open(file_path, "+a", encoding="utf-8") as file:
                             file.write(f"role_prompt:{role_prompt}")
                             file.write(f"generating answer:{content}\n\n")
-                            
+
+                        """
+                        数据库中插入的参数
+                        主题 topic : {topic}
+                        问题（文言原文） question : {question}
+                        问题现代文翻译 question_translation : {question_translation}
+                        人物 role : {role}
+                        人物对相关主题发表过的见解 role_dialog : {dialog}
+                        模型生成人物的回答 answer : {answer_content}
+                        """
+                        # 插入数据示例
+                        insert_data_redis(
+                            topic=topic,
+                            question=question,
+                            question_translation=question_translation,
+                            role=role,
+                            role_dialog=dialog,
+                            answer=answer_content,
+                        )
+
                         print("==== ====\n")
         # else:
         #     print("Not find content concerning topic")
