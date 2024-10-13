@@ -56,7 +56,7 @@ import redis
 
 # 连接 Redis 数据库
 # 默认 db=0, 这里使用 db=4, 避免与本地的 db 冲突
-r = redis.StrictRedis(host="localhost", port=6379, db=4, decode_responses=True)
+r = redis.StrictRedis(host="localhost", port=6379, db=5, decode_responses=True)
 
 
 # 修改插入数据的函数，插入后确认数据
@@ -113,7 +113,11 @@ import re
 QA_with_topic.json 每条目加载
 每一条目："theme", "question", "answer", "source", "translation"
 """
+<<<<<<< HEAD
 json_path = "D:\WorkSpace\VScodeProject\LunYuDemo\data\QA_with_topic.json"
+=======
+json_path = "data\QA_with_topic_unique.json"
+>>>>>>> 9e5ee6fe5018ba9ef3700488d754fd8670b8d72e
 with open(json_path, "r", encoding="utf-8") as file:
     topic_based_data = json.load(file)
 
@@ -124,7 +128,11 @@ for item in topic_based_data:
     question_translation = item["translation"]
     print("question:", question)
 
+<<<<<<< HEAD
     topic_json_path = "D:\WorkSpace\VScodeProject\LunYuDemo\data\\topic.json"
+=======
+    topic_json_path = "data\\topic_name_unique.json"
+>>>>>>> 9e5ee6fe5018ba9ef3700488d754fd8670b8d72e
     with open(topic_json_path, "r", encoding="utf-8") as file:
         topic_data = json.load(file)
 
