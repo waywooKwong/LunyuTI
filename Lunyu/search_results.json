@@ -1,0 +1,104 @@
+{
+    "searchParameters": {
+        "q": "国内发生的热点事件，从国内新闻网上找",
+        "gl": "us",
+        "hl": "en",
+        "type": "news",
+        "num": 10,
+        "engine": "google"
+    },
+    "news": [
+       
+        {
+            "title": "中国记协：青岛司机逆行打人事件尘埃落定，反思还应继续-腾讯新闻",
+            "link": "https://news.qq.com/rain/a/20240904A07LAB00",
+            "snippet": "近日，山东青岛“王某驾车逆行辱骂殴打他人”事件，引发各方关注。我们梳理了事件发生和发酵节点：2024年8月28日13时许，王某（女，38岁，崂山区人）驾车行至...",
+            "date": "1 month ago",
+            "source": "QQ News",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpXAV1IXEBTXZCrve6VPd3kjkFWIzWcGGh1FZxKCGOFdlL89qLYYsbxQNCyg&s",
+            "position": 1
+        },
+         {
+            "title": "百万网红“小英一家”陷塌房争议：记录生活还是“卖惨”营销？-腾讯新闻",
+            "link": "https://news.qq.com/rain/a/20240924A07TQ600",
+            "snippet": "潮新闻客户端记者吴越朱高祥因深陷“卖惨”风波，百万网红@小英一家已停更三天，掉粉超10万，其发布的689个乡村生活视频被淹没在质疑声中。",
+            "date": "3 weeks ago",
+            "source": "QQ News",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyc-McjpaRWQUoiETiZBCq4814kcJnqp8Cc7UdlGzXRg_JtwnTaaZEmsbJ1g&s",
+            "position": 2
+        },
+        {
+            "title": "一夜掉粉百万，被流量反噬的网红们踩了哪些雷区？",
+            "link": "https://m.36kr.com/p/2875832558162305",
+            "snippet": "“空空日记”可能是今年掉粉速度最快的网红。 他是抖音粉丝超过500万的生活博主，只因一网友表示不喜欢他，便在直播间用“得癌了吧”“有病就赶紧投胎吧”等...",
+            "date": "2 months ago",
+            "source": "36Kr",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf9ECpfs-kwI47RjfiIPo71DAHz0KvGDYUoKd1MwxoPm_AfjDDauLnF7DKtw&s",
+            "position": 3
+        },
+        {
+            "title": "山东寿光一生物科技公司发生气体中毒事故致7死4伤",
+            "link": "https://news.cctv.com/2024/10/13/ARTIqRCymyYr8ml56rvO4MBy241013.shtml",
+            "snippet": "2024年10月12日13时30分左右，潍坊金石生物科技有限公司发生气体中毒事故，造成7人死亡，4人受伤，受伤者生命体征平稳。事故相关责任人已被控制。",
+            "date": "1 hour ago",
+            "source": "央视网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpumozPeMRldENoOKIZ6fYLXOHxBPx8IUzeVQFhhoWMXVbjb_y0dZe6X9vNw&s",
+            "position": 2
+        },
+        {
+            "title": "济南解放阁鬼火少年后续：到底是怎么组织起来的这么多人！",
+            "link": "https://www.163.com/dy/article/JE0U4EPB05568ZK4.html",
+            "snippet": "这两天鬼火少年频繁登上热搜！ 10月6日晚11时许，山东济南历下区解放阁附近有组织的出现大量“鬼火少年”。 他们在人群中飙车炫技、燃放烟花，还有人爬上...",
+            "date": "4 days ago",
+            "source": "手机网易网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVpZsUg5F_M5nCV8Lk5_ufv5O2AgXTRk7YRcDuLfCAeaHgPAPyDxzIKuC7hQ&s",
+            "position": 5
+        },
+        {
+            "title": "抖音网红，一直塌方？",
+            "link": "https://www.donews.com/article/detail/5267/75692.html",
+            "snippet": "粉丝量超2400万的抖音网红“东北雨姐”，最近“塌房”了。",
+            "date": "3 weeks ago",
+            "source": "DoNews",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbrAW49WPo9l9B_vEb61ISBW866qdOWLwxHJjrLsJm5FQG6AHIdFekqhKpQw&s",
+            "position": 6
+        },
+        {
+            "title": "解局 | 是谁给黎巴嫩传呼机动了手脚？",
+            "link": "http://www.news.cn/world/20240918/960df060adc24e13b6224c5e2b33e4d2/c.html",
+            "snippet": "新华社北京/贝鲁特9月18日电黎巴嫩多地17日下午发生传呼机爆炸事件，造成至少9人死亡、约2800人受伤。一名黎巴嫩真主党官员说，这次的袭击目标不是针对...",
+            "date": "3 weeks ago",
+            "source": "新华网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsY5jivd_EGZLi1KNxckGliZq3xIOS6lDnfQsf5nb2HLqIVf83gYHq3nMisw&s",
+            "position": 9
+        },
+        {
+            "title": "沧州经济开发区：传承孝道 情暖重阳",
+            "link": "http://he.people.com.cn/n2/2024/1010/c192235-41003197.html",
+            "snippet": "10月10日，河北省沧州市兴业路小学的学生们走进沧州经济开发区雅布伦养老院，开展“感恩重阳老幼同乐”重阳节慰问活动，为老人们送上关怀和节日的祝福。",
+            "date": "3 days ago",
+            "source": "人民网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWYBZzzGaOEBkjg0ToiGruqOAR6yJDzlfoT91JIn1uRo3I0Z3b_-g_O7WEkw&s",
+            "position": 8
+        },
+        {
+            "title": "会员费白交了，你看4K视频可能是个假货！揭秘视频网站“清晰度缩水”真相：你被骗了多久？",
+            "link": "https://finance.sina.cn/2024-10-10/detail-incsavui1911006.d.html?vt=4&cid=76675&node_id=76675",
+            "snippet": "令人意想不到，视频平台竟有如此骚操作！ 你付费看的4K，可能只是“假高清”！你看的高清也可能不是真高清！ 视频网站为降低流量费用，会对多人观看的...",
+            "date": "2 days ago",
+            "source": "新浪财经",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC8j6iUcgjmtVuVIIou0Lfqu3RPo2sk40JYE-q5e-FPXNlUU8vLQ2NikGrhQ&s",
+            "position": 2
+        },
+         {
+            "title": "千万粉丝网红大蓝账号被封，此前多次推荐股票，有网友称跟风被套-腾讯新闻",
+            "link": "https://news.qq.com/rain/a/20241011A051RY00",
+            "snippet": "10月11日午后，据媒体报道，千万粉丝博主大蓝抖音账号被封。此前，大蓝连发几十条股市相关作品，标题包括“A股大盘公开预测”“新手炒股赚钱买哪只股票”“我是...",
+            "date": "2 days ago",
+            "source": "QQ News",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsj_iquyIQp8MI4a77KAGS6nMUshW9PlyfOq_2iBe0PX8YeVjU1fvkyhKpA&s",
+            "position": 10
+        }
+    ],
+    "credits": 1
+}

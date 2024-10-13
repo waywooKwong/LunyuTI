@@ -9,7 +9,7 @@ from langchain_community.utilities import GoogleSerperAPIWrapper
 search = GoogleSerperAPIWrapper(type="news")
 
 # 执行搜索，获取结果
-results = search.results("国内外热门新闻,只在国内新闻网上找")
+results = search.results("4K视频")
 
 # 打印结果
 pprint.pp(results)
