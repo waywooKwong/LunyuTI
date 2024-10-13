@@ -99,3 +99,19 @@ content:
     2. News json preparation & db running - WangPu
     3. frontend prototype interface docs - QianCheng
     4. similarity comparation interface - LiQun
+
+date: 13/10/2024 23:10 - 23:00
+place: online
+topic: task divition
+content:
+    All we should do:
+        1. local building redis
+        2. docs strcture 
+    1. docs - KuangWeihua
+    2. redis + similarity, UI topic -> question -> get answer -> similarity -LiQun
+    3. Redis online? json; frontend prototype interface docs -QianCheng
+    4. news get function - WangPu
+
+next stage:
+    1. news func usage
+    2. maintainment doc
