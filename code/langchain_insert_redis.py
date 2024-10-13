@@ -40,6 +40,13 @@ from langchain_core.prompts import (
     ChatPromptTemplate,
     PromptTemplate,
 )
+
+import torch
+if torch.cuda.is_available():
+    print(f"CUDA is available. Using GPU: {torch.cuda.get_device_name(0)}")
+else:
+    print("CUDA is not available. Falling back to CPU.")
+
 import datetime
 
 # 标记时间戳，便于文件命名于标定时间
@@ -54,7 +61,7 @@ r = redis.StrictRedis(host="localhost", port=6379, db=5, decode_responses=True)
 
 # 修改插入数据的函数，插入后确认数据
 def insert_data_redis(
-    topic, question, question_translation, role, role_dialog, answer, answer_translation
+        topic, question, question_translation, role, role_dialog, answer, answer_translation
 ):
     # 使用 Redis 的 INCR 自增编号
     id = r.incr("entry_id")
@@ -81,14 +88,15 @@ def insert_data_redis(
 from langchain_community.chat_models import ChatOllama
 
 model_name = "Lunyu"  # 这里的 Lunyu 模型是 Ollama 基于 Qwen2.5 生成的
-chat_model = ChatOllama(model=model_name)
+chat_model = ChatOllama(model=model_name, device="cuda")
+
 
 ## 1.2 embeddings 模型（用 m3e-base），需要本地加载,，gitignore掉了
 from langchain_huggingface import HuggingFaceEmbeddings
 
 # 这里先确认模型有没有加载到本地
 embeddings = HuggingFaceEmbeddings(
-    model_name="model\embedding\m3e-base", model_kwargs={"device": "cpu"}
+    model_name="D:\WorkSpace\VScodeProject\LunYuDemo\model\embedding\m3e-base", model_kwargs={"device": "cpu"}
 )
 print("embedding loading:", embeddings.model_name)
 
@@ -105,7 +113,11 @@ import re
 QA_with_topic.json 每条目加载
 每一条目："theme", "question", "answer", "source", "translation"
 """
+<<<<<<< HEAD
+json_path = "D:\WorkSpace\VScodeProject\LunYuDemo\data\QA_with_topic.json"
+=======
 json_path = "data\QA_with_topic_unique.json"
+>>>>>>> 9e5ee6fe5018ba9ef3700488d754fd8670b8d72e
 with open(json_path, "r", encoding="utf-8") as file:
     topic_based_data = json.load(file)
 
@@ -116,7 +128,11 @@ for item in topic_based_data:
     question_translation = item["translation"]
     print("question:", question)
 
+<<<<<<< HEAD
+    topic_json_path = "D:\WorkSpace\VScodeProject\LunYuDemo\data\\topic.json"
+=======
     topic_json_path = "data\\topic_name_unique.json"
+>>>>>>> 9e5ee6fe5018ba9ef3700488d754fd8670b8d72e
     with open(topic_json_path, "r", encoding="utf-8") as file:
         topic_data = json.load(file)
 
@@ -278,21 +294,21 @@ for item in topic_based_data:
                         start_index = content_processed.find("answer:") + len("answer:")
                         end_index = content_processed.find("answer_translation:")
                         answer_part = content_processed[
-                            start_index:end_index
-                        ].strip()  # 去掉前后空格
+                                      start_index:end_index
+                                      ].strip()  # 去掉前后空格
 
                         # 提取 answer_translation: 后的内容
                         start_index_translation = content_processed.find(
                             "answer_translation:"
                         ) + len("answer_translation:")
                         answer_translation = content_processed[
-                            start_index_translation:
-                        ].strip()  # 去掉前后空格
+                                             start_index_translation:
+                                             ].strip()  # 去掉前后空格
 
                         print("Answer Part:", answer_part)
                         print("Answer Translation:", answer_translation)
 
-                        file_path = f"data\\role_answer\{timestamp}_answer.txt"
+                        file_path = f"D:\WorkSpace\VScodeProject\LunYuDemo\data\\role_answer\{timestamp}_answer.txt"
                         with open(file_path, "+a", encoding="utf-8") as file:
                             file.write(f"role_prompt:{role_prompt}")
                             file.write(f"generating answer:{content}\n\n")

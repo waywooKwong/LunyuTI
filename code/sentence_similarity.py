@@ -8,11 +8,11 @@
 
 from sentence_transformers import SentenceTransformer, util
 
-model = SentenceTransformer("model\embedding\\all-MiniLM-L6-v2")
-# sentence1 = "the topic is:'animal',the sentence is:'这是一只快乐的人'"
-# sentence2 = "the topic is:'animal',the sentence is:'今天天气真好'"
-sentence1 = "'这是一只快乐的人'"
-sentence2 = "'今天天气真好'"
+model = SentenceTransformer("model\embedding\\m3e-base")
+sentence1 = "the topic is:'animal',the sentence is:'这是一只快乐的人'"
+sentence2 = "the topic is:'animal',the sentence is:'今天天气真好'"
+# sentence1 = "'这是一只快乐的人'"
+# sentence2 = "'今天天气真好'"
 
 embeddings1 = model.encode(sentence1)
 embeddings2 = model.encode(sentence2)
