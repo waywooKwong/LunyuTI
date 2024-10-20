@@ -1,98 +1,96 @@
 Page({
   data: {
-    selectedTopics: [],  // 选中的话题
-    currentQuestion: {  // 当前问题的原文和翻译
-      original: '子曰：“学而时习之，不亦说乎？”',
-      translation: '孔子说：“学习并时常复习，不是很愉快吗？”'
-    },
-    inputAnswer: '',  // 用户输入的答案
-    dialogues: [  // 对话记录
-      { type: 'system', text: { original: '子曰：“学而时习之，不亦说乎？”', translation: '孔子说：“学习并时常复习，不是很愉快吗？”' } }
-    ],
-    focus: false,
-    progress: 0,  // 进度条进度
-    totalQuestions: 5,  // 总问题数量，后期可以从后端获取
-    answeredQuestions: 0  // 已回答的问题数量
+    selectedTopic: '',
+    dialogues: [], // 对话内容
+    inputAnswer: '', // 用户输入
+    progress: 0,
   },
 
   onLoad(options) {
-    const topics = JSON.parse(decodeURIComponent(options.topics));
-    this.setData({
-      selectedTopics: topics
-    });
+    // 从选主题页面获取主题
+    if (options.theme) {
+      this.setData({
+        selectedTopic: decodeURIComponent(options.theme)
+      });
 
-    console.log('接收到的话题:', this.data.selectedTopics);
+      // 初始化对话内容
+      this.getQuestion();
+    } else {
+      console.error("未传递主题参数");
+    }
   },
 
-  // 获取用户输入
+  getQuestion() {
+    wx.request({
+      url: 'http://localhost:8000/get_question/',
+      method: 'GET',
+      data: {
+        theme_from_front: this.data.selectedTopic
+      },
+      success: (res) => {
+        if (res.data) {
+          this.setData({
+            dialogues: [{
+              type: 'system',
+              text: {
+                original: res.data.question,
+                translation: res.data.question_translation
+              }
+            }]
+          });
+        }
+      },
+      fail: (err) => {
+        console.error(err);
+      }
+    });
+  },
+
   onInputChange(e) {
     this.setData({
       inputAnswer: e.detail.value
     });
   },
 
-  // 提交答案
   submitAnswer() {
-    const { inputAnswer, dialogues, answeredQuestions, totalQuestions } = this.data;
-    
-    if (!inputAnswer.trim()) {
-      wx.showToast({
-        title: '请输入答案',
-        icon: 'none'
-      });
-      return;
-    }
-
-    // 显示用户输入的答案
+    // 将用户的输入添加到对话框
     this.setData({
-      dialogues: [...dialogues, { type: 'user', text: inputAnswer }],
-      inputAnswer: '',  // 清空输入框
-      answeredQuestions: answeredQuestions + 1  // 更新已回答问题数
+      dialogues: this.data.dialogues.concat([{
+        type: 'user',
+        text: this.data.inputAnswer
+      }])
     });
 
-    // 更新进度条
-    const progress = ((answeredQuestions + 1) / totalQuestions) * 100;
-    this.setData({
-      progress: progress
-    });
-
-    // 检查是否完成所有问题
-    if (progress >= 100) {
-      // 模拟跳转到结算页面
-      wx.navigateTo({
-        url: '/pages/resultOverlay/resultOverlay'
-      });
-      return;
-    }
-
-    // 模拟系统回复（注释掉的后端请求部分）
-    /*
+    // 发起匹配请求
     wx.request({
-      url: 'https://your-backend-api.com/submit-answer', // 替换成后端的接口
-      method: 'POST',
+      url: 'http://localhost:8000/get_answer/',
+      method: 'GET',
       data: {
-        topics: this.data.selectedTopics,
-        answer: inputAnswer
+        theme_from_front: this.data.selectedTopic,
+        answer_from_front: this.data.inputAnswer,
       },
       success: (res) => {
-        const systemReply = res.data.reply;
-        this.setData({
-          dialogues: [...this.data.dialogues, { type: 'system', text: systemReply }]
-        });
+        if (res.data) {
+          const {
+            answer,
+            role
+          } = res.data;
+
+          // 跳转到结算页面，并传递结果和role
+          wx.navigateTo({
+            url: `/pages/resultOverlay/resultOverlay?answer=${encodeURIComponent(answer)}&role=${encodeURIComponent(role)}`,
+          });
+        }
       },
-      fail: () => {
-        wx.showToast({
-          title: '请求失败，请稍后再试',
-          icon: 'none'
-        });
+      fail: (err) => {
+        console.error(err);
       }
     });
-    */
 
-    // 示例系统回复
-    const exampleReply = { original: '曾子曰：“吾日三省吾身。”', translation: '曾子说：“我每天反省自己三次。”' };
+    // 清空输入框
     this.setData({
-      dialogues: [...this.data.dialogues, { type: 'system', text: exampleReply }]
+      inputAnswer: ''
     });
   }
-});
+
+})

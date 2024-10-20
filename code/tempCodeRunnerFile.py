@@ -33,7 +33,7 @@ def match_theme(theme_from_front):
         
         if topic:
             topic = topic.decode('utf-8')
-            
+            print(f"当前键 {key} 的 topic 是: {topic}")
 
             # 如果 'topic' 字段的值与传入的 theme_from_front 匹配
             if topic == theme_from_front:
