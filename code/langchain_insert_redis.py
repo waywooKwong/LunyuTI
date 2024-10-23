@@ -42,6 +42,7 @@ from langchain_core.prompts import (
 )
 
 import torch
+
 if torch.cuda.is_available():
     print(f"CUDA is available. Using GPU: {torch.cuda.get_device_name(0)}")
 else:
@@ -61,7 +62,7 @@ r = redis.StrictRedis(host="localhost", port=6379, db=5, decode_responses=True)
 
 # 修改插入数据的函数，插入后确认数据
 def insert_data_redis(
-        topic, question, question_translation, role, role_dialog, answer, answer_translation
+    topic, question, question_translation, role, role_dialog, answer, answer_translation
 ):
     # 使用 Redis 的 INCR 自增编号
     id = r.incr("entry_id")
@@ -96,7 +97,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 
 # 这里先确认模型有没有加载到本地
 embeddings = HuggingFaceEmbeddings(
-    model_name="D:\WorkSpace\VScodeProject\LunYuDemo\model\embedding\m3e-base", model_kwargs={"device": "cpu"}
+    model_name="model\embedding\m3e-base", model_kwargs={"device": "cpu"}
 )
 print("embedding loading:", embeddings.model_name)
 
@@ -145,6 +146,7 @@ for item in topic_based_data:
                 """
 
                 # 加载人物相关描述的数据
+                # 不许修改代码相对路径！复制副本修改，不能动源代码。会影响所有人的本地运行！
                 role_json_path = "data\\role.json"
                 with open(role_json_path, "r", encoding="utf-8") as file:
                     role_data = json.load(file)
@@ -286,21 +288,22 @@ for item in topic_based_data:
                         start_index = content_processed.find("answer:") + len("answer:")
                         end_index = content_processed.find("answer_translation:")
                         answer_part = content_processed[
-                                      start_index:end_index
-                                      ].strip()  # 去掉前后空格
+                            start_index:end_index
+                        ].strip()  # 去掉前后空格
 
                         # 提取 answer_translation: 后的内容
                         start_index_translation = content_processed.find(
                             "answer_translation:"
                         ) + len("answer_translation:")
                         answer_translation = content_processed[
-                                             start_index_translation:
-                                             ].strip()  # 去掉前后空格
+                            start_index_translation:
+                        ].strip()  # 去掉前后空格
 
                         print("Answer Part:", answer_part)
                         print("Answer Translation:", answer_translation)
 
-                        file_path = f"D:\WorkSpace\VScodeProject\LunYuDemo\data\\role_answer\{timestamp}_answer.txt"
+                        # 不许修改代码相对路径！复制副本修改，不能动源代码。会影响所有人的本地运行！
+                        file_path = f"data\\role_answer\{timestamp}_answer.txt"
                         with open(file_path, "+a", encoding="utf-8") as file:
                             file.write(f"role_prompt:{role_prompt}")
                             file.write(f"generating answer:{content}\n\n")

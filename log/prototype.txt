@@ -115,3 +115,28 @@ content:
 next stage:
     1. news func usage
     2. maintainment doc
+
+date: 15/10/2024 
+place: online
+topic: docs writing & roles change
+content:
+    Milestone: Prototype finished
+next stage:
+    1. next stage role divition 
+    2. docs wrting duty classification
+
+
+date: 17/10/2024 23:00 - 23:40
+place: dormitory 1-608
+topic: task divition
+content:
+    1. UI design display
+    2. interface check by Postman
+
+
+date: 21/10/2024 23:10 - 23:00
+place: dormitory 1-608
+topic: task divition
+content:
+    1. docs polishment
+    2. record video 
