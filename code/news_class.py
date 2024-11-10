@@ -382,15 +382,15 @@ class LunyuQASystem:
             "answer_translation":most_similar_answer_trans,
             "role": corresponding_role
         }
-lunyu=LunyuQASystem()
-information=  {
-        "title": "沧州经济开发区：传承孝道 情暖重阳",
-        "link": "http://he.people.com.cn/n2/2024/1010/c192235-41003197.html",
-        "snippet": "10月10日，河北省沧州市兴业路小学的学生们走进沧州经济开发区雅布伦养老院，开展“感恩重阳老幼同乐”重阳节慰问活动，为老人们送上关怀和节日的祝福。",
-        "date": "3 days ago",
-        "source": "人民网",
-        "theme": "孝道的理解",
-        "img_url":"http://he.people.com.cn/NMediaFile/2024/1010/LOCAL1728552317000FDYOUTP0QW.jpg"
+# lunyu=LunyuQASystem()
+# information=  {
+#         "title": "沧州经济开发区：传承孝道 情暖重阳",
+#         "link": "http://he.people.com.cn/n2/2024/1010/c192235-41003197.html",
+#         "snippet": "10月10日，河北省沧州市兴业路小学的学生们走进沧州经济开发区雅布伦养老院，开展“感恩重阳老幼同乐”重阳节慰问活动，为老人们送上关怀和节日的祝福。",
+#         "date": "3 days ago",
+#         "source": "人民网",
+#         "theme": "孝道的理解",
+#         "img_url":"http://he.people.com.cn/NMediaFile/2024/1010/LOCAL1728552317000FDYOUTP0QW.jpg"
 
-}
-lunyu.process_news_data(informations_from_front=information)
+# }
+# lunyu.process_news_data(informations_from_front=information)

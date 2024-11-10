@@ -3,10 +3,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sentence_transformers import SentenceTransformer, util
 import random
-from news_class import LunyuQASystem
+from Lunyu_generate_online import similarity_news_match,online_generate
 import json
 import urllib.parse
-lunyu_news=LunyuQASystem()
+
 app = FastAPI()
 
 app.add_middleware(
@@ -143,38 +143,63 @@ def get_answer(question_from_back: str, answer_from_front: str):
         raise HTTPException(status_code=404, detail="没有找到匹配的答案。")
 
 
-# 接口 3： 获取前端选择的新闻， 
+# 接口 3：返回新闻、自定义问题相似度匹配结果
 
 # 3.1 展示新闻详情,获取前端点击的新闻（string）：待完善
-def shownews(news_from_front):
-    """
-    {
-        "title": "千万粉丝网红大蓝账号被封，此前多次推荐股票，有网友称跟风被套-腾讯新闻",
-        "link": "https://news.qq.com/rain/a/20241011A051RY00",
-        "snippet": "10月11日午后，据媒体报道，千万粉丝博主大蓝抖音账号被封。此前，大蓝连发几十条股市相关作品，标题包括“A股大盘公开预测”“新手炒股赚钱买哪只股票”“我是...",
-        "date": "2 days ago",
-        "source": "QQ News",
-        "theme": "权力与责任",
-        "img_url":"https://inews.gtimg.com/om_bt/Owk1KpUJb1LmcSmiZDvIA96i9FMfOh5n5uADTx25OG1KcAA/1000"
+"""
+前端传递给后端的数据：
+1.0 新闻：
+information:{
+    "topic":主题,
+    "news_topic":新闻标题,
+    "news_snippet"：新闻简介
+    "user_answer":用户对新闻的看法（用于相似度匹配）,
+    "mode":news
 
-    }
-    返回类似以上字典
-    """
-# 当用户点击某一个新闻时，展示详情
-@app.post("/get_news_similaity/")
-def get_answer(answer_from_front: str,informations_from_front):
-    decoded_answer_from_front = urllib.parse.unquote(answer_from_front)
+}
+2.0 自定义问题
+
+information:{
+    topic:主题,
+    question:自定义问题,
+    user_answer:用户对问题的看法（用于相似度匹配）,
+    mode:none
+
+}
+
+3.0 翻译用户回答：
+information{
+    mode:custom,
+    user_answer:用户的回答
+
+
+}
+
+"""
+@app.post("/online_generate/")
+def get_answer(informations_from_front):
+   
     decoded_informations_from_front = urllib.parse.unquote(informations_from_front)
     informations_from_front_dict = json.loads(decoded_informations_from_front)
-    print("回答：",decoded_answer_from_front)
-    print("json",decoded_informations_from_front)
-    result = lunyu_news.similarity_news_match(answer_from_front=answer_from_front,informations_from_front=informations_from_front_dict)
-  
-    if result:
-        return result
+    # 判断mode
+    mode=informations_from_front_dict["mode"]
+    # 如果是custom,直接将翻译结果返回前端
+    if mode=="custom":
+        print("翻译为古文")
+        result=online_generate(role="论语风格古文翻译器",question=None,dialog=informations_from_front_dict["user_answer"],mode=mode)
+        answer_transwer_lunyu=result["answer_part"]
+        return answer_transwer_lunyu
     else:
-        # 没有找到匹配答案，返回 404 错误
-        raise HTTPException(status_code=404, detail="没有找到匹配的新闻。")
+
+        print("json",decoded_informations_from_front)
+        result =similarity_news_match(informations_from_front=informations_from_front_dict)
+  
+        if result:
+            return result
+        else:
+            # 没有找到匹配答案，返回 404 错误
+            raise HTTPException(status_code=404, detail="没有匹配到回答")
+
     
 
 
