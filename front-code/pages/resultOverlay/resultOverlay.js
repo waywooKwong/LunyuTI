@@ -4,21 +4,22 @@ Page({
     discipleName: '', // 弟子名字
     discipleDescription: '', // 弟子描述
     confuciusQuote: '', // 孔子的原话
-    translatedUserQuote: '', // 用户转化后的古文
+    answer: '', // 相似度最高的原始答案
   },
 
   // 页面加载时触发
   onLoad(options) {
-    // 获取传递过来的弟子名字和回答
+    // 获取传递过来的弟子名字、回答和问题
     const discipleName = decodeURIComponent(options.role);
-    const confuciusQuote = decodeURIComponent(options.answer);
-
+    const confuciusQuote = decodeURIComponent(options.question); // 获取传递过来的问题
+    const answer = decodeURIComponent(options.answer);
+  
     // 设置页面的数据
     this.setData({
       discipleName: discipleName,
       discipleDescription: `你与${discipleName}最为相似`,
       confuciusQuote: confuciusQuote, // 孔子的原话
-      translatedUserQuote: this.translateUserQuote(confuciusQuote) // 假设有一个转化古文的方法
+      answer: answer // 相似度最高的原始答案
     });
 
     // 根据弟子名字直接设置头像
@@ -52,12 +53,6 @@ Page({
     this.setData({
       discipleImageUrl: imageMap[discipleName] || '/images/default.png'
     });
-  },
-
-  // 将用户输入翻译成古文
-  translateUserQuote(answer) {
-    //暂时用匹配到的话做
-    return `${answer}`; // 示例
   },
 
   // 保存图片

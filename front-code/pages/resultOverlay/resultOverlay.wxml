@@ -4,17 +4,16 @@
       <text class="title">测试结果</text>
     </view>
     <view class="content">
-      <image class="disciple-image" src="{{discipleImageUrl}}" />
       <view class="disciple-info">
         <text class="disciple-name">{{discipleName}}\n</text>\n
         <text class="disciple-description">你与{{discipleName}}最为相似</text>
       </view>
       <view class="dialogue">
         <view class="bubble system-bubble">
-          <text class="original-text">子曰：“{{confuciusQuote}}”</text> <!-- 孔子的原话 -->
+          <text class="original-text">{{confuciusQuote}}</text> <!-- 孔子的原话 -->
         </view>
         <view class="bubble user-bubble">
-          <text class="original-text">{{translatedUserQuote}}</text> <!-- 用户转化后的古文 -->
+          <text class="original-text">{{answer}}</text> <!-- 相似度最高的原始答案 -->
         </view>
       </view>
     </view>
