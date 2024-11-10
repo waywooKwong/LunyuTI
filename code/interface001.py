@@ -3,7 +3,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sentence_transformers import SentenceTransformer, util
 import random
-
+from news_class import LunyuQASystem
+import json
+import urllib.parse
+lunyu_news=LunyuQASystem()
 app = FastAPI()
 
 app.add_middleware(
@@ -129,7 +132,7 @@ def similarity_match(question_from_back, answer_from_front):
         "role": corresponding_role
     }
 
-# 接口 2: 获取最相似的回答及其回答者（根据 theme_from_front 和 answer_from_front 匹配）
+# 接口 2: 获取最相似的回答及其回答者（根据 question_from_back 筛选，并通过 answer_translation 匹配，但返回 answer））
 @app.get("/get_answer/")
 def get_answer(question_from_back: str, answer_from_front: str):
     result = similarity_match(question_from_back, answer_from_front)
@@ -158,9 +161,15 @@ def shownews(news_from_front):
     返回类似以上字典
     """
 # 当用户点击某一个新闻时，展示详情
-@app.get("/get_answer/")
-def get_answer(news_from_front: str):
-    result = shownews(news_from_front)
+@app.post("/get_news_similaity/")
+def get_answer(answer_from_front: str,informations_from_front):
+    decoded_answer_from_front = urllib.parse.unquote(answer_from_front)
+    decoded_informations_from_front = urllib.parse.unquote(informations_from_front)
+    informations_from_front_dict = json.loads(decoded_informations_from_front)
+    print("回答：",decoded_answer_from_front)
+    print("json",decoded_informations_from_front)
+    result = lunyu_news.similarity_news_match(answer_from_front=answer_from_front,informations_from_front=informations_from_front_dict)
+  
     if result:
         return result
     else:
