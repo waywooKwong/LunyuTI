@@ -41,12 +41,15 @@ PostMan 使用教程：
 2. 选择 **"raw"** 作为 Body 的类型。
 3. 选择 **JSON** 格式，并在文本框中输入你希望发送的数据。例如：
 
+注意：这里 mode 参数可为空, 默认是None, 默认是角色回答问题
+    如果 mode 设置为 "custom" , 是把角色的话翻译为古文
    ```json
    {
      "topic": "仁",
      "role": "邝伟华",
      "question": "学习有什么用",
-     "dialog": "曾经谈到仁的价值"
+     "dialog": "曾经谈到仁的价值",
+     "mode": "custom" / None
    }
    ```
 
@@ -73,7 +76,8 @@ PostMan 使用教程：
     "topic": "仁",
     "role": "邝伟华",
     "question": "学习有什么用",
-    "dialog": "曾经谈到仁的价值"
+    "dialog": "曾经谈到仁的价值",
+    "mode": "custom" / None 
   }
   ```
 
@@ -105,30 +109,41 @@ from langchain_core.prompts import (
 #     print("CUDA is not available. Falling back to CPU.")
 
 
-def online_generate(topic, role, question, dialog):
+def online_generate(topic, role, question, dialog, mode):
     """
     args:
         topic: 谈论主题
         role: 当前角色
         question: 当前问题
         (optional) dialog: 角色对当前问题发表过什么见解
+        (optional) mode: 函数的模式, None(默认,角色回答问题)/ custom (翻译成古文)
     return:
         answer_part: 模型生成的古文回答
         answer_translation: 古文的现代文翻译回答
     """
 
     # 出于参数调整的方便，我把 prompt 放到最前面
-    prompt = f"""
-    现在讨论的主题为：{topic},
-    有人提出这样一个问题：{question},
-    论语中人物：{role},
-    曾经对这个话题发表过见解：{dialog}
-    """
+    if mode == "custom":  # mode 设置为 custom 整体函数用作把现代文翻译成古文
+        prompt = f"""  
+        {dialog}
+        """
 
-    role_prompt = f"""
-    你目前的角色设定是：{prompt}
-    请用你的风格与我对话，发表你对问题的见解
-    """
+        role_prompt = f"""
+        请把下述现代文翻译成论语风格：：{prompt}
+        """
+
+    else:
+        prompt = f"""
+        现在讨论的主题为：{topic},
+        有人提出这样一个问题：{question},
+        论语中人物：{role},
+        曾经对这个话题发表过见解：{dialog}
+        """
+
+        role_prompt = f"""
+        你目前的角色设定是：{prompt}
+        请用你的风格与我对话，发表你对问题的见解
+        """
     print("role_prompt:", role_prompt)
 
     ## 1.1 设定选择模型，这里使用 ChatOllama
@@ -303,7 +318,8 @@ class GenerationRequest(BaseModel):
     topic: str
     role: str
     question: str
-    dialog: Optional[str] = None
+    dialog: Optional[str] = None  # Optional 这个写法代表不是必须的参数
+    mode: Optional[str] = None  # 设置mode默认值为None
 
 
 # 定义生成回答的路由
@@ -316,6 +332,7 @@ async def generate_answer(request: GenerationRequest):
             role=request.role,
             question=request.question,
             dialog=request.dialog,
+            mode=request.mode,  # 使用请求中的mode（默认为None）
         )
         # 返回结果
         return {"answer": answer, "translation": translation}
