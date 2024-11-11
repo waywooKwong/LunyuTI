@@ -42,14 +42,14 @@ PostMan 使用教程：
 3. 选择 **JSON** 格式，并在文本框中输入你希望发送的数据。例如：
 
 注意：这里 mode 参数可为空, 默认是None, 默认是角色回答问题
-    如果 mode 设置为 "custom" , 是把角色的话翻译为古文
+    如果 mode 设置为 "trans" , 是把角色的话翻译为古文
    ```json
    {
      "topic": "仁",
      "role": "邝伟华",
      "question": "学习有什么用",
      "dialog": "曾经谈到仁的价值",
-     "mode": "custom" / None
+     "mode": "trans" / None
    }
    ```
 
@@ -77,7 +77,7 @@ PostMan 使用教程：
     "role": "邝伟华",
     "question": "学习有什么用",
     "dialog": "曾经谈到仁的价值",
-    "mode": "custom" / None 
+    "mode": "trans" / None 
   }
   ```
 
@@ -122,14 +122,14 @@ def online_generate(topic, role, question, dialog, mode,news_title=None,news_sni
         role: 当前角色
         question: 当前问题
         (optional) dialog: 角色对当前问题发表过什么见解
-        (optional) mode: 函数的模式, None(默认,角色回答问题)/ custom (翻译成古文)
+        (optional) mode: 函数的模式, None(默认,角色回答问题)/ trans (翻译成古文)
     return:
         answer_part: 模型生成的古文回答
         answer_translation: 古文的现代文翻译回答
     """
 
     # 出于参数调整的方便，我把 prompt 放到最前面
-    if mode == "custom":  # mode 设置为 custom 整体函数用作把现代文翻译成古文
+    if mode == "trans":  # mode 设置为 trans 整体函数用作把现代文翻译成古文
         prompt = f"""  
         {dialog}
         """
@@ -327,7 +327,7 @@ def online_generate(topic, role, question, dialog, mode,news_title=None,news_sni
 1.0 新闻：
 information:{
     topic:主题,
-    news_topic:新闻标题,
+    news_title:新闻标题,
     news_snippet：新闻简介
     user_answer:用户对新闻的看法（用于相似度匹配）,
     mode:news
@@ -345,7 +345,7 @@ information:{
 
 3.0 翻译用户回答：
 information{
-    mode:custom,
+    mode:trans,
     user_answer:用户的回答
 
 

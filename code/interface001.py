@@ -150,7 +150,7 @@ def get_answer(question_from_back: str, answer_from_front: str):
 前端传递给后端的数据：
 1.0 新闻：
 information:{
-    "topic":主题,
+    "title":新闻标题,
     "news_topic":新闻标题,
     "news_snippet"：新闻简介
     "user_answer":用户对新闻的看法（用于相似度匹配）,
@@ -184,9 +184,9 @@ def get_answer(informations_from_front):
     # 判断mode
     mode=informations_from_front_dict["mode"]
     # 如果是custom,直接将翻译结果返回前端
-    if mode=="custom":
+    if mode=="trans":
         print("翻译为古文")
-        result=online_generate(role="论语风格古文翻译器",question=None,dialog=informations_from_front_dict["user_answer"],mode=mode)
+        result=online_generate(role="论语风格古文翻译器",question=None,dialog=informations_from_front_dict["user_answer"],mode=mode,topic=None)
         answer_transwer_lunyu=result["answer_part"]
         return answer_transwer_lunyu
     else:
