@@ -319,7 +319,7 @@ class GenerationRequest(BaseModel):
     role: str
     question: str
     dialog: Optional[str] = None # Optional 这个写法代表不是必须的参数
-    mode: Optional[str] = None  # 设置mode默认值为None
+    mode: Optional[str] = None  # 设置 mode 默认值为 None
 
 
 # 定义生成回答的路由

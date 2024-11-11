@@ -77,7 +77,7 @@ PostMan 使用教程：
     "role": "邝伟华",
     "question": "学习有什么用",
     "dialog": "曾经谈到仁的价值",
-    "mode": "custom" / None 
+    "mode": "news"/ "custom" / "translate" / "None" 
   }
   ```
 
@@ -109,40 +109,72 @@ from langchain_core.prompts import (
 #     print("CUDA is not available. Falling back to CPU.")
 
 
-def online_generate(topic, role, question, dialog, mode):
+def online_generate(topic, role, title, question, dialog, mode):
     """
     args:
         topic: 谈论主题
         role: 当前角色
+        (optional) title: 新闻的标题
         question: 当前问题
         (optional) dialog: 角色对当前问题发表过什么见解
-        (optional) mode: 函数的模式, None(默认,角色回答问题)/ custom (翻译成古文)
+        (optional) mode: 函数的模式
+            1. (默认) None, 不管不顾地在线生成
+            2. news, 新闻
+            3. custom, 用户自定义问题
+            4. translate, 现代文翻译成古文
     return:
         answer_part: 模型生成的古文回答
         answer_translation: 古文的现代文翻译回答
     """
 
     # 出于参数调整的方便，我把 prompt 放到最前面
-    if mode == "custom":  # mode 设置为 custom 整体函数用作把现代文翻译成古文
+    if mode == "translate":  # mode 设置为 custom 整体函数用作把现代文翻译成古文
         prompt = f"""  
         {dialog}
         """
 
         role_prompt = f"""
-        请把下述现代文翻译成论语风格：：{prompt}
+        请把下述现代文翻译成论语的文言风格：：{prompt}
         """
 
-    else:
+    elif mode == "custom":
         prompt = f"""
         现在讨论的主题为：{topic},
         有人提出这样一个问题：{question},
-        论语中人物：{role},
+        你作为论语中人物：{role},
+        曾经对相关话题发表过见解：{dialog}
+        """
+
+        role_prompt = f"""
+        你目前的角色设定是：{prompt}
+        请用严格你的风格，参照你发表过的见解，发表你对上述问题的见解
+        """
+
+    elif mode == "news":
+        prompt = f"""
+        现在讨论的主题为：{topic},
+        现在有这样的社会热点事件，新闻标题为：{title}
+        新闻内容的具体介绍为：{question},
+        你作为论语中人物：{role},
+        曾经对相关内容发表过见解：{dialog}
+        """
+
+        role_prompt = f"""
+        你目前的角色设定是：{prompt}
+        请用严格你的风格，参照你发表过的见解，与我对话，发表你对这个事件的见解
+        """
+
+    else:  # 默认 None 的完整使用
+        prompt = f"""
+        现在讨论的主题为：{topic},
+        有人提出这样一个问题：{question},
+        你作为论语中人物：{role},
         曾经对这个话题发表过见解：{dialog}
         """
 
         role_prompt = f"""
         你目前的角色设定是：{prompt}
-        请用你的风格与我对话，发表你对问题的见解
+        请用严格你的风格，参照你发表过的见解，与我对话，发表你对这个问题的见解
         """
     print("role_prompt:", role_prompt)
 
@@ -317,6 +349,7 @@ app = FastAPI()
 class GenerationRequest(BaseModel):
     topic: str
     role: str
+    title: Optional[str] = None  # 新闻题目，只当 mode="news" 时启用
     question: str
     dialog: Optional[str] = None  # Optional 这个写法代表不是必须的参数
     mode: Optional[str] = None  # 设置mode默认值为None

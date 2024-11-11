@@ -134,6 +134,7 @@ def get_answer(theme_from_front: str, answer_from_front: str):
         # 没有找到匹配答案，返回 404 错误
         raise HTTPException(status_code=404, detail="没有找到匹配的答案。")
 
+
 if __name__ == "__main__":
     import uvicorn
 
