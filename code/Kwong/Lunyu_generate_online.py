@@ -109,7 +109,9 @@ from langchain_core.prompts import (
 #     print("CUDA is not available. Falling back to CPU.")
 
 
-def online_generate(topic, role, question, dialog, mode):
+def online_generate(
+    topic, role, question, dialog, mode, news_title=None, news_snippet=None
+):
     """
     args:
         topic: 谈论主题
@@ -131,7 +133,20 @@ def online_generate(topic, role, question, dialog, mode):
         role_prompt = f"""
         请把下述现代文翻译成论语风格：：{prompt}
         """
+    elif mode == "news":
+        prompt = f"""
+        现在讨论的主题为：{topic},
+        现在有这样一个热点事件：{news_title},
+        事件具体内容为：{news_snippet}
+        论语中人物：{role},
+        曾经对这个主题题发表过见解：{dialog}
+        曾经对这个话题发表过见解：{dialog}
+        """
 
+        role_prompt = f"""
+        你目前的角色设定是：{prompt}
+        请用你的风格与我对话，发表你对问题的见解
+        """
     else:
         prompt = f"""
         现在讨论的主题为：{topic},
@@ -317,8 +332,9 @@ app = FastAPI()
 class GenerationRequest(BaseModel):
     topic: str
     role: str
+    title: Optional[str] = None
     question: str
-    dialog: Optional[str] = None # Optional 这个写法代表不是必须的参数
+    dialog: Optional[str] = None  # Optional 这个写法代表不是必须的参数
     mode: Optional[str] = None  # 设置 mode 默认值为 None
 
 
@@ -330,6 +346,7 @@ async def generate_answer(request: GenerationRequest):
         answer, translation = online_generate(
             topic=request.topic,
             role=request.role,
+            title=request.title,
             question=request.question,
             dialog=request.dialog,
             mode=request.mode,  # 使用请求中的mode（默认为None）

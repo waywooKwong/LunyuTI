@@ -4,6 +4,7 @@ Page({
     dialogues: [], // 对话内容
     inputAnswer: '', // 用户输入
     progress: 0,
+    isSubmitting: false, // 提交按钮状态
   },
 
   onLoad(options) {
@@ -53,6 +54,11 @@ Page({
   },
 
   submitAnswer() {
+    // 禁用提交按钮
+    this.setData({
+      isSubmitting: true
+    });
+
     // 将用户的输入添加到对话框
     this.setData({
       dialogues: this.data.dialogues.concat([{
@@ -71,26 +77,25 @@ Page({
       },
       success: (res) => {
         if (res.data) {
-          const {
-            answer,
-            role
-          } = res.data;
-
+          const { answer, role } = res.data;
+          const question = this.data.dialogues[0].text.original; // 获取最初的问题
+  
           // 跳转到结算页面，并传递结果和role
           wx.navigateTo({
-            url: `/pages/resultOverlay/resultOverlay?answer=${encodeURIComponent(answer)}&role=${encodeURIComponent(role)}`,
+            url: `/pages/resultOverlay/resultOverlay?answer=${encodeURIComponent(answer)}&role=${encodeURIComponent(role)}&question=${encodeURIComponent(question)}`,
           });
         }
       },
       fail: (err) => {
         console.error(err);
+      },
+      complete: () => {
+        // 请求完成后重新启用提交按钮
+        this.setData({
+          isSubmitting: false,
+          inputAnswer: '' // 清空输入框
+        });
       }
     });
-
-    // 清空输入框
-    this.setData({
-      inputAnswer: ''
-    });
   }
-
-})
+});
