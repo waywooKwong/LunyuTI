@@ -174,31 +174,77 @@ class GenerationRequest(BaseModel):
 async def get_answer(request: GenerationRequest):
 
     mode = request.mode
-    # 如果是custom,直接将翻译结果返回前端
-    if mode == "translate":
-        print("翻译为古文")
-        result = online_generate(
-            topic=request.topic,
-            role=request.role,
+    # # 如果是custom,直接将翻译结果返回前端
+    # if mode == "translate":
+    #     print("翻译为古文")
+    #     result = online_generate(
+    #         topic=request.topic,
+    #         role=request.role,
+    #         title=request.title,
+    #         question=request.question,
+    #         dialog=request.dialog,
+    #         mode=request.mode,  # 使用请求中的mode（默认为None）
+    #     )
+    #     return {
+    #         "answer": result["answer_part"],
+    #         "translation": result["answer_translation"],
+    #     }
+    # else:
+
+    # 第一张图片：最相似的门生
+    # 查看函数，result参数包含：
+    """
+    return {
+        "answer": most_similar_answer,
+        "answer_translation": most_similar_answer_trans,
+        "role": corresponding_role,
+    }
+    """
+    print("request:", request)
+    result = similarity_news_match(request)
+    
+    # 下一步自动获取第二张图片：你的论语的生成
+    pic2_role = result["role"] # 最像的门生
+    pic2_topic = request.topic # 匹配的主题
+    
+    json_path = "code\Kwong\pic2_idiom_match.json"
+    with open(json_path,'r',encoding='utf-8') as file:
+        json_data = json.load(file)
+        
+    pic2_idiom = "学而时习之，不亦乐乎" #（默认句） 根据 pic2_topic2 从找到对应要重写的原句（待实现）
+    
+    # pic2_part_reserve 是挖槽时默认的其它内容， pic2_idiom是需要重写的内容
+    for item in json_data:
+        if item["class"] == pic2_topic:
+            pic2_part_reserve = item["part_reserve"]
+            pic2_idiom = item["part_rewirte"]
+    
+    pic2_result = online_generate(
+            topic=pic2_topic,
+            role=pic2_role,
             title=request.title,
-            question=request.question,
+            question=pic2_idiom, # 具体的使用，参见online_generate函数类的设计
             dialog=request.dialog,
-            mode=request.mode,  # 使用请求中的mode（默认为None）
+            mode="translate",  # 使用请求中的mode（默认为None）
         )
-        return {
-            "answer": result["answer_part"],
-            "translation": result["answer_translation"],
-        }
+    # 返回参数
+    """
+    result = {
+        "answer_part": answer_part,
+        "answer_translation": answer_translation,
+        "role": role,
+    }
+    """
+    
+    # 定制得到“你的论语”
+    pic2_user_idiom = pic2_result["answer_part"]
+    print("user's Lunyu idiom:",pic2_user_idiom)
+
+    if result:
+        return result
     else:
-
-        print("request:", request)
-        result = similarity_news_match(request)
-
-        if result:
-            return result
-        else:
-            # 没有找到匹配答案，返回 404 错误
-            raise HTTPException(status_code=404, detail="没有匹配到回答")
+        # 没有找到匹配答案，返回 404 错误
+        raise HTTPException(status_code=404, detail="没有匹配到回答")
 
 
 if __name__ == "__main__":
