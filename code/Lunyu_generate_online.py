@@ -371,6 +371,10 @@ def process_news_data(request: GenerationRequest):
     global answers
     # 初始化
     answers = []
+    
+    # 初始化一个集合来跟踪已处理的角色
+    processed_roles = set()
+    
     # 列出 Redis_db5 中的所有哈希键
     keys = redis_client_db5.keys("*")
 
@@ -386,25 +390,43 @@ def process_news_data(request: GenerationRequest):
             # 如果 'topic' 字段的值与传入的 topic_from_front 匹配
             if topic_from_front.strip() == request.topic.strip():
                 print("相等")
-                # 处理角色信息
+                # 获取角色信息
                 role = redis_client_db5.hget(key, "role")
-                1. roles[]
-                2. 5个人
-                3. dialog
-                dialog = redis_client_db5.hget(key, "dialog")
+                if role:
+                    if isinstance(role, bytes):
+                        role = role.decode("utf-8")
+                    
+                    # 如果角色已经存在于集合中，跳过
+                    if role in processed_roles:
+                        continue
 
-                # (topic, role, question, dialog, mode,news_title=None,news_snippet=None
-                result = online_generate(
-                    topic=request.topic,
-                    role=role,
-                    title=request.title,
-                    question=request.question,
-                    dialog=dialog,
-                    mode=request.mode,  # 使用请求中的mode（默认为None）
-                )
+                    # 将角色加入集合
+                    processed_roles.add(role)
 
-                answers.append(result)
-                print(result, "\n")
+                    # 如果角色集合的大小超过5，停止处理
+                    if len(processed_roles) > 5:
+                        break
+
+                    # 获取对话信息
+                    dialog = redis_client_db5.hget(key, "answer")
+                    print("见解：",dialog)
+                    if dialog and isinstance(dialog, bytes):
+                        dialog = dialog.decode("utf-8")
+                    
+                    # 调用生成函数
+                    result = online_generate(
+                        topic=request.topic,
+                        role=role,
+                        title=request.title,
+                        question=request.question,
+                        dialog=dialog,
+                        mode=request.mode,  # 使用请求中的mode（默认为None）
+                    )
+
+                    # 将结果添加到回答列表
+                    answers.append(result)
+                    print(result, "\n")
+
 
 
 # answer,translation = online_generate(topic="仁", role="邝伟华", question="学习有什么用")
