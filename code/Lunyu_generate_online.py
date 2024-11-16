@@ -144,11 +144,15 @@ def online_generate(topic, role, title, question, dialog, mode):
     # 出于参数调整的方便，我把 prompt 放到最前面
     if mode == "translate":  # mode 设置为 custom 整体函数用作把现代文翻译成古文
         prompt = f"""  
-        {dialog}
+        现在讨论的主题为：{topic},
+        《论语》原文该主题有这样的名言：{question},
+        用户与论语中门生：{role} 最为匹配，
+        用户对这个主题发表过相关的见解：{dialog},
+        请保持用户见解的核心特征，将用户的话翻译成论语中的文言风格，尽量保持字数一致。
         """
 
         role_prompt = f"""
-        请把下述现代文翻译成论语的文言风格：：{prompt}
+        请根据用户见解仿照论语门生风格，对《论语》原文名言进行文言重写：{prompt}
         """
 
     elif mode == "custom":
@@ -367,37 +371,6 @@ def process_news_data(request: GenerationRequest):
     global answers
     # 初始化
     answers = []
-    """
-    处理问答数据的主要方法
-    
-    Args:
-        informations_from_front:前端传递过来的新闻信息
-    """
-    # mode = informations_from_front["mode"]
-    # topic = ""
-    # news_title = ""
-    # news_snippet = ""
-    # question = ""
-
-    # if mode == "news":
-    #     print("新闻：\n")
-    #     # 解析informations_from_front
-    #     news_title = informations_from_front["title"]
-    #     topic = informations_from_front["theme"]
-    #     news_snippet = informations_from_front["snippet"]
-
-    #     print("Title:", news_title)
-    #     print("topic:", topic)
-    #     print("Snippet:", news_snippet)
-    # else:
-    #     print("新闻：\n")
-    #     # 解析informations_from_front
-    #     question = informations_from_front["question"]
-    #     topic = informations_from_front["topic"]
-
-    #     print("question:", question)
-    #     print("topic:", topic)
-
     # 列出 Redis_db5 中的所有哈希键
     keys = redis_client_db5.keys("*")
 
@@ -420,10 +393,10 @@ def process_news_data(request: GenerationRequest):
                 # (topic, role, question, dialog, mode,news_title=None,news_snippet=None
                 result = online_generate(
                     topic=request.topic,
-                    role=request.role,
+                    role=role,
                     title=request.title,
                     question=request.question,
-                    dialog=request.dialog,
+                    dialog=dialog,
                     mode=request.mode,  # 使用请求中的mode（默认为None）
                 )
 
@@ -489,37 +462,3 @@ def similarity_news_match(request: GenerationRequest):
         "answer_translation": most_similar_answer_trans,
         "role": corresponding_role,
     }
-
-
-# from fastapi import FastAPI, HTTPException
-# from pydantic import BaseModel
-# from typing import Optional
-
-
-# # 创建 FastAPI 实例
-# app = FastAPI()
-
-
-# # 定义生成回答的路由
-# @app.post("/Lunyu_generate/")
-# async def generate_answer(request: GenerationRequest):
-#     try:
-#         # 调用 online_generate 函数，获取回答和翻译
-#         answer, translation = online_generate(
-#             topic=request.topic,
-#             role=request.role,
-#             question=request.question,
-#             dialog=request.dialog,
-#             mode=request.mode,  # 使用请求中的mode（默认为None）
-#         )
-#         # 返回结果
-#         return {"answer": answer, "translation": translation}
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=str(e))
-
-
-# # 启动 FastAPI 服务
-# if __name__ == "__main__":
-#     import uvicorn
-
-#     uvicorn.run(app, host="0.0.0.0", port=9090)
