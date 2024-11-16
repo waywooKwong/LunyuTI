@@ -388,6 +388,9 @@ def process_news_data(request: GenerationRequest):
                 print("相等")
                 # 处理角色信息
                 role = redis_client_db5.hget(key, "role")
+                1. roles[]
+                2. 5个人
+                3. dialog
                 dialog = redis_client_db5.hget(key, "dialog")
 
                 # (topic, role, question, dialog, mode,news_title=None,news_snippet=None
