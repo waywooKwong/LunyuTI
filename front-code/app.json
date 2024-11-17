@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/topicSelection/topicSelection",
     "pages/questionnaire/questionnaire",
-    "pages/resultOverlay/resultOverlay"  
+    "pages/resultOverlay/resultOverlay" ,
+     "pages/functionSelection/functionSelection",
+     "pages/customQuestion/customQuestion"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

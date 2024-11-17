@@ -1,25 +1,52 @@
-<view class="overlay">
-  <view class="result-card">
-    <view class="header">
-      <text class="title">测试结果</text>
+<view class="result-container">
+  <!-- 顶部部分 -->
+  <view class="top-section">
+    <!-- 左侧竖排的门生名字 -->
+    <view class="disciple-name-box">
+      <text wx:for="{{discipleName}}" wx:key="index" class="disciple-name-char">{{item}}</text>
     </view>
-    <view class="content">
-      <view class="disciple-info">
-        <text class="disciple-name">{{discipleName}}\n</text>\n
-        <text class="disciple-description">你与{{discipleName}}最为相似</text>
+    <!-- 右侧门生简介 -->
+    <view class="disciple-info-box">
+      <text class="disciple-description">{{discipleDescription}}</text>
+    </view>
+  </view>
+
+  <!-- 中部内容部分 -->
+  <view class="discussion-section">
+    <view class="discussion-header">
+      <text class="discussion-title">对于</text>
+      <view class="discussion-topic">
+        <text class="discussion-topic-text">{{selectedTopic}}</text>
       </view>
-      <view class="dialogue">
-        <view class="bubble system-bubble">
-          <text class="original-text">{{confuciusQuote}}</text> <!-- 孔子的原话 -->
-        </view>
-        <view class="bubble user-bubble">
-          <text class="original-text">{{answer}}</text> <!-- 相似度最高的原始答案 -->
-        </view>
+      <text class="discussion-title">你们讨论了</text>
+      <view class="discussion-question">
+        <text class="discussion-question-text">{{systemQuestion}}</text>
       </view>
     </view>
-    <view class="footer">
-      <button class="action-button" bindtap="saveImage">保存图片</button>
-      <button class="action-button" bindtap="sharePage">转发给朋友</button>
+    <view class="discussion-answers">
+      <view class="answer-item">
+        <text class="answer-label">门生如是说：</text>
+        <text class="answer-text">{{discipleAnswer}}</text>
+      </view>
+      <view class="answer-item">
+        <text class="answer-label">你说：</text>
+        <text class="answer-text">{{userAnswer}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作部分 -->
+  <view class="bottom-section">
+    <view class="action-buttons">
+      <button class="icon-button" bindtap="saveImage">
+        <image src="/assets/icons/download.png" class="icon" />
+      </button>
+      <button class="icon-button" bindtap="sharePage">
+        <image src="/assets/icons/share.png" class="icon" />
+      </button>
+    </view>
+    <view class="link-area">
+      <text class="link-text" bindtap="viewMoreLunyu">查看你的论语</text>
     </view>
   </view>
 </view>

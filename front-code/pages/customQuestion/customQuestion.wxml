@@ -1,0 +1,47 @@
+<view class="book-container">
+  <view class="book-page">
+    <!-- 说明区域 -->
+    <view class="instruction-area">
+      <text class="instruction-title">用户自定义问答</text>
+      <text class="instruction-description">
+        请输入您的问题，随后输入您自己的回答，系统将为您匹配最相似的孔子门生及其回答。
+      </text>
+    </view>
+
+    <!-- 对话框 -->
+    <scroll-view class="dialogue-box" scroll-y="true" style="max-height: 500px;">
+      <block wx:for="{{dialogues}}" wx:key="id">
+        <!-- 用户对话 -->
+        <view class="dialogue-item" wx:if="{{item.type === 'user'}}">
+          <view class="user-bubble">
+            <text>{{item.text}}</text>
+          </view>
+        </view>
+        <!-- 系统对话 -->
+        <view class="dialogue-item" wx:if="{{item.type === 'system'}}">
+          <view class="system-bubble">
+            <text class="original-text">{{item.text.original}}</text>
+            <text class="translation-text">{{item.text.translation}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+
+    <!-- 输入框和提交按钮 -->
+    <view class="input-area">
+      <textarea 
+        class="input-field" 
+        placeholder="{{inputPlaceholder}}" 
+        bindinput="onInputChange" 
+        value="{{inputText}}" 
+        auto-height 
+      />
+      <button 
+        class="submit-button" 
+        bindtap="onSubmit" 
+        disabled="{{isSubmitting}}">
+        {{buttonText}}
+      </button>
+    </view>
+  </view>
+</view>
