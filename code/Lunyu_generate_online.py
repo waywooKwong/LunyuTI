@@ -46,7 +46,8 @@ PostMan 使用教程：
    ```json
    {
      "topic": "仁",
-     "role": "邝伟华",
+     "role": "",
+     "title": "",
      "question": "学习有什么用",
      "dialog": "曾经谈到仁的价值",
      "mode": "trans" / None
@@ -74,7 +75,8 @@ PostMan 使用教程：
   ```json
   {
     "topic": "仁",
-    "role": "邝伟华",
+    "role": "",
+    "title": "",
     "question": "学习有什么用",
     "dialog": "曾经谈到仁的价值",
     "mode": "news"/ "custom" / "translate" / "None" 
@@ -116,7 +118,7 @@ from typing import Optional
 # 定义请求的参数模型
 class GenerationRequest(BaseModel):
     topic: str
-    role: str
+    role: Optional[str] = None  # role 可置为空
     title: Optional[str] = None
     question: str
     dialog: Optional[str] = None  # Optional 这个写法代表不是必须的参数
@@ -371,10 +373,10 @@ def process_news_data(request: GenerationRequest):
     global answers
     # 初始化
     answers = []
-    
+
     # 初始化一个集合来跟踪已处理的角色
     processed_roles = set()
-    
+
     # 列出 Redis_db5 中的所有哈希键
     keys = redis_client_db5.keys("*")
 
@@ -395,7 +397,7 @@ def process_news_data(request: GenerationRequest):
                 if role:
                     if isinstance(role, bytes):
                         role = role.decode("utf-8")
-                    
+
                     # 如果角色已经存在于集合中，跳过
                     if role in processed_roles:
                         continue
@@ -409,10 +411,10 @@ def process_news_data(request: GenerationRequest):
 
                     # 获取对话信息
                     dialog = redis_client_db5.hget(key, "answer")
-                    print("见解：",dialog)
+                    print("见解：", dialog)
                     if dialog and isinstance(dialog, bytes):
                         dialog = dialog.decode("utf-8")
-                    
+
                     # 调用生成函数
                     result = online_generate(
                         topic=request.topic,
@@ -426,7 +428,6 @@ def process_news_data(request: GenerationRequest):
                     # 将结果添加到回答列表
                     answers.append(result)
                     print(result, "\n")
-
 
 
 # answer,translation = online_generate(topic="仁", role="邝伟华", question="学习有什么用")
