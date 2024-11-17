@@ -207,7 +207,7 @@ async def get_answer(request: GenerationRequest):
     pic2_role = result["role"]  # 最像的门生
     pic2_topic = request.topic  # 匹配的主题
 
-    json_path = "code\Kwong\pic2_idiom_match.json"
+    json_path = "data\pic2_idiom_match.json"
     with open(json_path, "r", encoding="utf-8") as file:
         json_data = json.load(file)
 
@@ -217,7 +217,7 @@ async def get_answer(request: GenerationRequest):
     for item in json_data:
         if item["class"] == pic2_topic:
             pic2_part_reserve = item["part_reserve"]
-            pic2_idiom = item["part_rewirte"]
+            pic2_idiom = item["part_rewrite"]
 
     pic2_result = online_generate(
         topic=pic2_topic,
@@ -227,11 +227,11 @@ async def get_answer(request: GenerationRequest):
         dialog=request.dialog,
         mode="translate",  # 使用请求中的mode（默认为None）
     )
-    
+
     # 定制得到“你的论语”
     pic2_user_idiom = pic2_result["answer_part"]
     print("user's Lunyu idiom:", pic2_user_idiom)
-    
+
     # 为 result 添加新的键值对
     result["pic2_part_reserve"] = pic2_part_reserve
     result["pic2_part_rewrite"] = pic2_idiom
@@ -248,10 +248,10 @@ async def get_answer(request: GenerationRequest):
         "pic2_user_idiom": // pic2-2-2 原文改写后的内容-用户论语
     }
     """
-    
+
     if result:
         return result
-    
+
     else:
         # 没有找到匹配答案，返回 404 错误
         raise HTTPException(status_code=404, detail="没有匹配到回答")
