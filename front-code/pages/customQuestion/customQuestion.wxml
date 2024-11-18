@@ -1,5 +1,5 @@
 <view class="book-container">
-  <view class="book-page">
+  <view class="book-page" style="height: 1400rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">
     <!-- 说明区域 -->
     <view class="instruction-area">
       <text class="instruction-title">用户自定义问答</text>
@@ -8,15 +8,17 @@
       </text>
     </view>
 
+    <!-- 显示选中的话题 -->
+    <view class="topics-area">
+      <text class="topics-title">你选择的话题:</text>
+      <view class="topic-items">
+        <text class="topic-item">{{topic}}</text>
+      </view>
+    </view>
+
     <!-- 对话框 -->
-    <scroll-view class="dialogue-box" scroll-y="true" style="max-height: 500px;">
-      <block wx:for="{{dialogues}}" wx:key="id">
-        <!-- 用户对话 -->
-        <view class="dialogue-item" wx:if="{{item.type === 'user'}}">
-          <view class="user-bubble">
-            <text>{{item.text}}</text>
-          </view>
-        </view>
+    <scroll-view class="dialogue-box" scroll-y="true" style="max-height: 500px; height: 987rpx; display: block; box-sizing: border-box">
+      <block wx:for="{{dialogues}}" wx:key="index">
         <!-- 系统对话 -->
         <view class="dialogue-item" wx:if="{{item.type === 'system'}}">
           <view class="system-bubble">
@@ -24,12 +26,18 @@
             <text class="translation-text">{{item.text.translation}}</text>
           </view>
         </view>
+        <!-- 用户对话 -->
+        <view class="dialogue-item" wx:if="{{item.type === 'user'}}">
+          <view class="user-bubble">
+            <text>{{item.text}}</text>
+          </view>
+        </view>
       </block>
     </scroll-view>
 
     <!-- 输入框和提交按钮 -->
-    <view class="input-area">
-      <textarea 
+    <view class="input-area" wx:if="{{!showJumpButton}}">
+      <textarea style="width: 427rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx" 
         class="input-field" 
         placeholder="{{inputPlaceholder}}" 
         bindinput="onInputChange" 
@@ -39,9 +47,17 @@
       <button 
         class="submit-button" 
         bindtap="onSubmit" 
-        disabled="{{isSubmitting}}">
+        disabled="{{isSubmitting}}" style="height: 93rpx; display: block; box-sizing: border-box; left: -1rpx; top: -2rpx; width: 135rpx; position: relative">
         {{buttonText}}
       </button>
     </view>
+
+    <!-- 跳转按钮 -->
+    <button 
+      class="navigate-button" 
+      bindtap="onNavigateToSettlement" 
+      wx:if="{{showJumpButton}}">
+      跳转到结算界面
+    </button>
   </view>
 </view>

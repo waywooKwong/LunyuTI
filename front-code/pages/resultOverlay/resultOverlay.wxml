@@ -25,7 +25,8 @@
     </view>
     <view class="discussion-answers">
       <view class="answer-item">
-        <text class="answer-label">门生如是说：</text>
+        <text wx:for="{{discipleName}}" class="disciple-name-char">{{item}}</text>
+        <text class="answer-label">如是说：</text>
         <text class="answer-text">{{discipleAnswer}}</text>
       </view>
       <view class="answer-item">

@@ -12,7 +12,7 @@ Page({
   onCustomQuestion() {
     // 跳转到自定义问答页面
     wx.navigateTo({
-      url: `/pages/customQuestion/customQuestion?theme=${encodeURIComponent(this.data.topic)}`,
+      url: `/pages/customQuestion/customQuestion?topic=${encodeURIComponent(this.data.topic)}`,
     });
   },
 

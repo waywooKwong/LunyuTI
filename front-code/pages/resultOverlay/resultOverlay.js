@@ -1,22 +1,23 @@
 Page({
   data: {
-    discipleName: '', // 门生名字，从后端传递
-    discipleDescription: '', // 门生简介，从后端传递
-    selectedTopic: '', // 用户选择的主题，从前一个页面传递
-    systemQuestion: '', // 系统提供的问题，从后端传递
-    discipleAnswer: '', // 门生的回答，从后端传递
-    userAnswer: '' // 用户的回答，从前一个页面传递
+    discipleName: '', // 门生名字
+    selectedTopic: '', // 用户选择的主题
+    systemQuestion: '', // 系统的问题
+    discipleAnswer: '', // 门生的回答
+    userAnswer: '', // 用户的回答
+    answerTranslation: '', // 最相似回答的中文翻译
   },
 
-  onLoad(options) {
-    this.setData({
-      discipleName: decodeURIComponent(options.discipleName),
-      discipleDescription: decodeURIComponent(options.discipleDescription),
-      selectedTopic: decodeURIComponent(options.selectedTopic),
-      systemQuestion: decodeURIComponent(options.systemQuestion),
-      discipleAnswer: decodeURIComponent(options.discipleAnswer),
-      userAnswer: decodeURIComponent(options.userAnswer)
-    });
+  onLoad() {
+    // 从本地存储中获取数据
+    const data = wx.getStorageSync('resultData');
+    if (data) {
+      this.setData(data);
+      // 清除本地存储，避免下次进入页面时数据混淆
+      wx.removeStorageSync('resultData');
+    } else {
+      wx.showToast({ title: '未找到结算数据', icon: 'none' });
+    }
   },
 
   saveImage() {
@@ -29,7 +30,7 @@ Page({
 
   viewMoreLunyu() {
     wx.navigateTo({
-      url: '/pages/moreLunyu/moreLunyu'
+      url: '/pages/moreLunyu/moreLunyu',
     });
-  }
+  },
 });
