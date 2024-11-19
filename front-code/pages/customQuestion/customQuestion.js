@@ -69,7 +69,7 @@ Page({
   submitToBackend() {
     this.setData({ isSubmitting: true });
     wx.showLoading({ title: '加载中...' });
-
+  
     wx.request({
       url: 'http://localhost:8000/online_generate/', // 替换为实际后端地址
       method: 'POST',
@@ -87,11 +87,14 @@ Page({
       },
       success: (res) => {
         if (res.data && res.data.answer && res.data.role) {
-          // 保存必要的数据
+          // 保存所有六个参数
           this.setData({
             role: res.data.role, // 门生名字
             discipleAnswer: res.data.answer, // 门生的回答
             answerTranslation: res.data.answer_translation || '', // 最相似回答的中文翻译
+            pic2PartReserve: res.data.pic2_part_reserve || '', // pic2-1 原文不需要改动的内容
+            pic2PartRewrite: res.data.pic2_part_rewrite || '', // pic2-2-1 原文需要重写的原内容
+            pic2UserIdiom: res.data.pic2_user_idiom || '', // pic2-2-2 原文改写后的内容 - 用户论语
             systemQuestion: this.data.question, // 系统的问题（即用户输入的问题）
             dialogues: [
               ...this.data.dialogues,
@@ -120,7 +123,7 @@ Page({
       },
     });
   },
-
+  
   // 跳转到结算界面
   onNavigateToSettlement() {
     if (!this.data.role) {
@@ -136,6 +139,9 @@ Page({
       discipleAnswer: this.data.discipleAnswer,
       userAnswer: this.data.dialog,
       answerTranslation: this.data.answerTranslation,
+      pic2PartReserve: this.data.pic2PartReserve,
+      pic2PartRewrite:this.data.pic2PartRewrite,
+      pic2UserIdiom:this.data.pic2UserIdiom,
     });
 
     wx.navigateTo({

@@ -22,4 +22,11 @@ Page({
       url: `/pages/questionnaire/questionnaire?theme=${encodeURIComponent(this.data.topic)}`,
     });
   },
+
+  onNewsQuestion(){
+    //跳转到新闻问答页面
+    wx.navigateTo({
+      url:  `/pages/new/new?topic=${encodeURIComponent(this.data.topic)}`,
+    })
+  }
 });

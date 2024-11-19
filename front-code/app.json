@@ -5,7 +5,11 @@
     "pages/questionnaire/questionnaire",
     "pages/resultOverlay/resultOverlay" ,
      "pages/functionSelection/functionSelection",
-     "pages/customQuestion/customQuestion"
+     "pages/customQuestion/customQuestion",
+     "pages/new/new",
+     "pages/questionnaireNews/questionnaireNews",
+     "pages/inputName/inputName",
+     "pages/secondResultPage/secondResultPage"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

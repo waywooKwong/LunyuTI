@@ -1,0 +1,16 @@
+<!--pages/resultOverlay1/resultOverlay1.wxml-->
+
+<view class="container">
+  <view class="side"></view>
+  <view class="main">
+    <view class="inner">
+      <view class="content">
+        <text class="highlight-text">分析完毕！</text>
+        <text>接下来请输入您的名字，获取您的定制论语</text>
+        <input type="text" placeholder="请输入您的名字" bindinput="onInputChange" />
+        <button type="primary" bindtap="onConfirm">确认 --></button>
+      </view>
+    </view>
+  </view>
+  <view class="side"></view>
+</view>

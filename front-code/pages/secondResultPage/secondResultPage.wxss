@@ -1,0 +1,67 @@
+/* pages/resultOverlay2/resultOverlay2.wxss */
+.letter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px 0; /* 上下添加间隔 */
+}
+
+.letter-content {
+  width: 80%;
+  height: 60vh; /* 限制高度以启用滚动 */
+  padding: 20px;
+  background-color: #fdf5e6; /* 纸黄色背景 */
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.6;
+  white-space: pre-wrap; /* 保留换行 */
+  overflow-y: auto; /* 启用垂直滚动 */
+  margin-top: -20vh; /* 整体上移 20vh */
+  position: relative; /* 为伪元素定位 */
+}
+
+.letter-content::after {
+  content: '';
+  position: absolute;
+  top: 20px; /* 与 padding 顶部对齐 */
+  left: 20px; /* 与 padding 左侧对齐 */
+  width: calc(100% - 40px); /* 减去左右 padding */
+  height: calc(100% - 40px); /* 减去上下 padding */
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(1.55em - 1px), /* 调整行高 */
+    lightgray calc(1.55em - 1px),
+    lightgray 1.55em
+  );
+  pointer-events: none; /* 使伪元素不影响文本选择 */
+}
+
+.highlight {
+  color: red; /* 设置文本颜色为红色 */
+}
+
+.extra-space {
+  margin-bottom: 1.6em; /* 额外的空行 */
+}
+
+.extra-space-small {
+  margin-bottom: 2em;
+}
+
+.userNameText {
+  text-align: right; /* 使内容靠右显示 */
+}
+
+.titleText {
+  text-align: center;
+}
+
+.pic2_part_rewrite_Text {
+  text-align: right;
+  color: #a9a9a9; /* 设置字体颜色为淡灰色 */
+  font-size: 0.6em; 
+}
