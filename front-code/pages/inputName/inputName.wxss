@@ -1,0 +1,62 @@
+/* pages/resultOverlay1/resultOverlay1.wxss */
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 1241rpx;
+  padding: 10px;
+  margin: 10px;
+  box-sizing: border-box;
+}
+
+.side {
+  background-color: #ffffff;
+  flex: 1;
+}
+
+.main {
+  background-color: #f3ce88;
+  width: 460rpx;
+  display: block;
+  box-sizing: border-box;
+  height: 947rpx;
+  position: relative;
+  left: 0rpx;
+  top: 158rpx;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  height: 945rpx;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  position: relative;
+  left: 0rpx;
+  top: 2rpx;
+}
+
+.content {
+  background-color: #f0e6c4;
+  height: 906rpx;
+  display: flex;
+  flex-direction: column; /* 垂直排列 */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.highlight-text {
+  font-size: 24px; /* 字体变大 */
+  font-weight: bold; /* 字体变粗 */
+  color: green; /* 颜色绿色 */
+}
+
+input {
+  margin: 20rpx 0;
+  padding: 10rpx;
+  border: 1px solid #ccc;
+  border-radius: 5rpx;
+  width: 80%;
+}

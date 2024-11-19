@@ -1,106 +1,61 @@
 Page({
   data: {
-    discipleImageUrl: '', // 弟子头像的URL
-    discipleName: '', // 弟子名字
-    discipleDescription: '', // 弟子描述
-    confuciusQuote: '', // 孔子的原话
-    answer: '', // 相似度最高的原始答案
+    discipleName: '', // 门生名字
+    selectedTopic: '', // 用户选择的主题
+    systemQuestion: '', // 系统的问题
+    discipleAnswer: '', // 门生的回答
+    userAnswer: '', // 用户的回答
+    answerTranslation: '', // 最相似回答的中文翻译
+    // 用于传递给下一个页面的参数
+    pic2PartReserve: '',
+    pic2PartRewrite: '',
+    pic2UserIdiom: '',
   },
 
-  // 页面加载时触发
-  onLoad(options) {
-    // 获取传递过来的弟子名字、回答和问题
-    const discipleName = decodeURIComponent(options.role);
-    const confuciusQuote = decodeURIComponent(options.question); // 获取传递过来的问题
-    const answer = decodeURIComponent(options.answer);
-  
-    // 设置页面的数据
-    this.setData({
-      discipleName: discipleName,
-      discipleDescription: `你与${discipleName}最为相似`,
-      confuciusQuote: confuciusQuote, // 孔子的原话
-      answer: answer // 相似度最高的原始答案
+  onLoad() {
+    // 从本地存储中获取数据
+    const data = wx.getStorageSync('resultData');
+    if (data) {
+      this.setData({
+        discipleName: data.discipleName,
+        selectedTopic: data.selectedTopic,
+        systemQuestion: data.systemQuestion,
+        discipleAnswer: data.discipleAnswer,
+        userAnswer: data.userAnswer,
+        answerTranslation: data.answerTranslation,
+        pic2PartReserve: data.pic2PartReserve,
+        pic2PartRewrite: data.pic2PartRewrite,
+        pic2UserIdiom: data.pic2UserIdiom,
+      });
+      // 清除本地存储，避免下次进入页面时数据混淆
+      wx.removeStorageSync('resultData');
+    } else {
+      wx.showToast({ title: '未找到结算数据', icon: 'none' });
+      console.error('未找到结算数据');
+    }
+  },
+
+  // 跳转到第二个结算页面
+  viewMoreLunyu() {
+    // 将后三个参数保存到本地存储
+    wx.setStorageSync('nameResultData', {
+      pic2PartReserve: this.data.pic2PartReserve,
+      pic2PartRewrite: this.data.pic2PartRewrite,
+      pic2UserIdiom: this.data.pic2UserIdiom,
     });
-
-    // 根据弟子名字直接设置头像
-    this.setDiscipleImage(discipleName);
-  },
-
-  // 根据弟子名字设置头像
-  setDiscipleImage(discipleName) {
-    const imageMap = {
-      '颜渊': '/images/yanhui.png',
-      '曾皙': '/images/zengzi.png',
-      '子夏': '/images/zixia.png',
-      '子游': '/images/ziyou.png',
-      '子贡': '/images/zigong.png',
-      '子禽': '/images/ziqin.png',
-      '子张': '/images/zizhang.png',
-      '宰我': '/images/zaiwo.png',
-      '公治长': '/images/gongzhichang.png',
-      '南容': '/images/nanrong.png',
-      '子贱': '/images/zijian.png',
-      '子路': '/images/zilu.png',
-      '冉子': '/images/ranzi.png',
-      '樊迟': '/images/fanchi.png',
-      '仲弓': '/images/zhonggong.png',
-      '司马牛': '/images/simaniu.png',
-      '冉有': '/images/ranyou.png',
-      '南宫适': '/images/nangongshi.png',
-      // 添加其他弟子的头像路径
-    };
-
-    this.setData({
-      discipleImageUrl: imageMap[discipleName] || '/images/default.png'
+console.log(this.data.pic2PartReserve);
+    wx.navigateTo({
+      url: '/pages/inputName/inputName',
     });
   },
 
-  // 保存图片
+  // 保存图片功能（待实现）
   saveImage() {
-    // 保存图片的逻辑
-    wx.canvasToTempFilePath({
-      canvasId: 'resultCanvas', // 假设绘制结果的canvas id
-      success: function (res) {
-        wx.saveImageToPhotosAlbum({
-          filePath: res.tempFilePath,
-          success: function () {
-            wx.showToast({
-              title: '图片已保存',
-              icon: 'success'
-            });
-          },
-          fail: function (err) {
-            console.error("保存图片失败", err);
-            wx.showToast({
-              title: '保存失败',
-              icon: 'none'
-            });
-          }
-        });
-      },
-      fail: function (err) {
-        console.error("生成图片失败", err);
-      }
-    });
+    wx.showToast({ title: '保存图片功能待开发', icon: 'none' });
   },
 
-  // 分享页面功能
+  // 分享页面功能（待实现）
   sharePage() {
-    wx.showShareMenu({
-      withShareTicket: true,
-      success: () => {
-        wx.showToast({
-          title: '分享成功',
-          icon: 'success'
-        });
-      },
-      fail: (err) => {
-        console.error("分享失败", err);
-        wx.showToast({
-          title: '分享失败',
-          icon: 'none'
-        });
-      }
-    });
-  }
+    wx.showToast({ title: '分享功能待开发', icon: 'none' });
+  },
 });

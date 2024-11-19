@@ -1,0 +1,61 @@
+.function-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%; /* 调整宽度更适配屏幕 */
+  min-height: 90vh;
+  padding: 20px;
+  background-color: #ffffff;
+  perspective: 1500px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.page-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #493737;
+  margin-bottom: 10px;
+}
+
+.page-description {
+  font-size: 16px;
+  color: #666;
+}
+
+.function-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 增强阴影效果 */
+  border: 2px solid #493737;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Georgia', serif;
+  cursor: pointer;
+}
+
+.function-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* 添加动态阴影 */
+}
+
+.function-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #493737;
+  margin-bottom: 10px;
+}
+
+.function-description {
+  font-size: 16px;
+  color: #666;
+}

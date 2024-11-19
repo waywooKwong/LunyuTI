@@ -1,0 +1,17 @@
+<!-- pages/resultOverlay2/resultOverlay2.wxml -->
+<view class="letter-container">
+  <view class="letter-content">
+    <view class="titleText">你的论语</view>
+    <view class="line extra-space"></view> <!-- 添加额外的空行 -->
+
+
+    <text>{{pic2PartReserve}}</text>
+    <text class="highlight">{{pic2UserIdiom}}</text>
+    <view class="pic2_part_rewrite_Text">{{pic2PartRewrite}}</view>
+
+    <view class="line extra-space-small"></view> <!-- 添加额外的空行 -->
+    
+
+    <view class="userNameText">————{{userName}}</view>
+  </view>
+</view>

@@ -1,0 +1,34 @@
+<view class="book-container">
+  <view class="book-page">
+    <!-- 显示选中的话题 -->
+    <view class="topics-area">
+      <text class="topics-title">你选择的话题:</text>
+      <view class="topic-items">
+        <text class="topic-item">{{selectedTopic}}</text>
+      </view>
+    </view>
+
+    <!-- 对话框 -->
+    <scroll-view class="dialogue-box" scroll-y="true">
+      <block wx:for="{{dialogues}}" wx:key="index">
+        <view class="dialogue-item" wx:if="{{item.type ==='system'}}">
+          <view class="system-bubble">
+            <text class="original-text">{{item.text.original}}\n</text>
+            <text class="translation-text">{{item.text.translation}}</text>
+          </view>
+        </view>
+        <view class="dialogue-item" wx:if="{{item.type === 'user'}}">
+          <view class="user-bubble">
+            <text>{{item.text}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+
+    <!-- 用户输入框和提交按钮 -->
+    <view class="input-area">
+      <textarea class="input-field" placeholder="请输入你的看法" bindinput="onInputChange" value="{{inputAnswer}}" focus="{{focus}}" />
+      <button class="submit-button" bindtap="submitAnswer" disabled="{{isSubmitting}}">提交</button>
+    </view>
+  </view>
+</view>

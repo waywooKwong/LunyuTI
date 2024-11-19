@@ -1,0 +1,29 @@
+<view class="container">
+  <scroll-view class="content" scroll-y="true">
+    <text class="title">选中的主题是: {{topic}}</text>
+    <view wx:if="{{themeData.length > 0}}">
+      <block wx:for="{{themeData}}" wx:key="_id">
+        <view>
+          <image class="image" src="{{item.img_url}}" mode="aspectFit"></image>
+          <view>
+            <text class="text">标题: {{item.title}}</text>
+          </view>
+          <view>
+            <text class="text">日期: {{item.date}}</text>
+          </view>
+          <view>
+            <text class="text">来源: {{item.source}}</text>
+          </view>
+          <view>
+            <text class="text">摘要: {{item.snippet}}</text>
+          </view>
+          <view>
+            <navigator class="navigator" url="{{item.link}}">阅读更多</navigator>
+          </view>          
+          <button bindtap="navigateToQuestionnaire" data-topic="{{topic}}" data-title="{{item.title}}" data-snippet="{{item.snippet}}">选择此新闻进行评论</button>
+          <view class="divider"></view> <!-- 添加横线分割 -->
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>

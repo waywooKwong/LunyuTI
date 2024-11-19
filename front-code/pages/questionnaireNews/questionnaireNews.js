@@ -1,65 +1,47 @@
 Page({
   data: {
-    selectedTopic: '',
-    dialogues: [], // 对话内容
-    inputAnswer: '', // 用户输入
-    progress: 0,
-    isSubmitting: false, // 提交按钮状态
-    question: '', // 获取的题目
-    questionTranslation: '', // 题目的翻译
+    selectedTopic: '',     // 选择的话题
+    dialogues: [],         // 对话内容
+    inputAnswer: '',       // 用户输入
+    isSubmitting: false,   // 提交按钮状态
+    title: '',             // 从 options 传入的标题
+    snippet: '',           // 从 options 传入的摘要
+    focus: false           // 输入框的焦点状态
   },
 
   onLoad(options) {
-    // 从选主题页面获取主题
-    if (options.theme) {
+    // 从上一个页面获取主题、标题和摘要
+    if (options.topic && options.snippet && options.title) {
       this.setData({
-        selectedTopic: decodeURIComponent(options.theme)
+        selectedTopic: decodeURIComponent(options.topic),
+        title: decodeURIComponent(options.title),
+        snippet: decodeURIComponent(options.snippet)
       });
 
-      // 初始化对话内容
-      this.getQuestion();
+      // 初始化对话内容，显示摘要和提问
+      this.setData({
+        dialogues: [{
+          type: 'system',
+          text: {
+            original: this.data.snippet,
+            translation: '你对该事件有什么看法?'
+          }
+        }]
+      });
     } else {
-      console.error("未传递主题参数");
+      console.error("未传递主题、标题或摘要参数");
+      wx.showToast({ title: '未获取到必要的数据', icon: 'none' });
     }
   },
 
-  getQuestion() {
-    wx.request({
-      url: 'http://localhost:8000/get_question/',
-      method: 'GET',
-      data: {
-        theme_from_front: this.data.selectedTopic
-      },
-      success: (res) => {
-        if (res.data) {
-          this.setData({
-            question: res.data.question,
-            questionTranslation: res.data.question_translation,
-            dialogues: [{
-              type: 'system',
-              text: {
-                original: res.data.question,
-                translation: res.data.question_translation
-              }
-            }]
-          });
-        } else {
-          wx.showToast({ title: '未获取到题目', icon: 'none' });
-        }
-      },
-      fail: (err) => {
-        console.error(err);
-        wx.showToast({ title: '获取题目失败', icon: 'none' });
-      }
-    });
-  },
-
+  // 输入框内容变化
   onInputChange(e) {
     this.setData({
-      inputAnswer: e.detail.value
+      inputAnswer: e.detail.value.trim()
     });
   },
 
+  // 提交答案
   submitAnswer() {
     if (!this.data.inputAnswer) {
       wx.showToast({ title: '输入内容不能为空', icon: 'none' });
@@ -83,12 +65,16 @@ Page({
 
     // 发起匹配请求
     wx.request({
-      url: 'http://localhost:8000/get_answer/',
-      method: 'GET',
+      url: 'http://localhost:8000/online_generate/', // 替换为实际后端地址
+      method: 'POST',
+      timeout: 120000,
       data: {
-        question_from_back: this.data.question,
-        answer_from_front: this.data.inputAnswer,
-        request_topic: this.data.selectedTopic, // 新增参数
+        topic: this.data.selectedTopic,
+        role: '',
+        title: this.data.title,
+        question: this.data.snippet,
+        dialog: this.data.inputAnswer,
+        mode: 'news'
       },
       success: (res) => {
         if (res.data && res.data.answer && res.data.role) {
@@ -101,11 +87,15 @@ Page({
             pic2_user_idiom
           } = res.data;
 
+          const question = this.data.dialogues[0].text.original; // 获取最初的问题
+
+          console.log("成功接收 online_generate 接口参数");
+
           // 将数据保存到本地存储
           wx.setStorageSync('resultData', {
             discipleName: role,
             selectedTopic: this.data.selectedTopic,
-            systemQuestion: this.data.question,
+            systemQuestion: question,
             discipleAnswer: answer,
             userAnswer: this.data.inputAnswer,
             answerTranslation: answer_translation,
@@ -124,14 +114,15 @@ Page({
         }
       },
       fail: (err) => {
-        console.error(err);
-        wx.showToast({ title: '请求失败，请检查网络', icon: 'none' });
+        console.error("请求失败：", err);
+        wx.showToast({ title: '提交失败，请检查网络', icon: 'none' });
       },
       complete: () => {
         // 请求完成后重新启用提交按钮
         this.setData({
           isSubmitting: false,
-          inputAnswer: '' // 清空输入框
+          inputAnswer: '', // 清空输入框
+          focus: true      // 聚焦到输入框
         });
         wx.hideLoading();
       }

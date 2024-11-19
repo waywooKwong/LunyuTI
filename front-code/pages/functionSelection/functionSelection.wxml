@@ -1,0 +1,21 @@
+<view class="function-container" style="position: relative; left: 38rpx; top: 0rpx">
+  <!-- 页面标题和描述 -->
+  <view class="page-header">
+    <text class="page-title">请选择问答模式\n</text>
+    <text class="page-description">选择一种问答方式进行互动</text>
+  </view>
+
+  <!-- 卡片列表 -->
+  <view class="function-card" bindtap="onNormalQuestion">
+    <text class="function-title">普通问答\n</text>
+    <text class="function-description">选择主题，系统提供问题，用户回答后进行匹配</text>
+  </view>
+  <view class="function-card" bindtap="onNewsQuestion">
+    <text class="function-title">新闻问答\n</text>
+    <text class="function-description">选择新闻，系统提供问题，用户回答后进行匹配</text>
+  </view>
+  <view class="function-card" bindtap="onCustomQuestion">
+    <text class="function-title">用户自定义问答\n</text>
+    <text class="function-description">用户自定义问题，系统回答，用户再回答后进行匹配</text>
+  </view>
+</view>
