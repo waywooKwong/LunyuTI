@@ -1,7 +1,7 @@
 import json
 import os
 
-os.environ["ZHIPUAI_API_KEY"] = "0e863acacdc09cad69cd7865fc3e0a28.mhYC6Yl7joh1dCZ5"
+os.environ["ZHIPUAI_API_KEY"] = "d9d24f27e5d30735687951d61b762b32.O4xZmN1yAN7FEPlH"
     # 20240731 20:55 weihua
     # new key: "6ac43a47c3fed6a70433a55108033202.OMB8LBLcgcz60x3q"
     # old key: "43c5d0cda6ab08302d6db046469d7c6b.eCF9cwVy1tadDU1q"
