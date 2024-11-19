@@ -146,10 +146,66 @@ def similarity_match(question_from_back, answer_from_front):
 
 # 接口 2: 获取最相似的回答及其回答者（根据 question_from_back 筛选，并通过 answer_translation 匹配，但返回 answer））
 @app.get("/get_answer/")
-def get_answer(question_from_back: str, answer_from_front: str):
+def get_answer(
+    question_from_back: str, answer_from_front: str, request_topic="执政之道"
+):
+    """
+    2024/11/19 修改，
+    前端需要增加一个参数 request_topic，
+    是第一步调用 get_question 时传入的同样的参数
+    """
     result = similarity_match(question_from_back, answer_from_front)
+
+    # 下一步自动获取第二张图片：你的论语的生成
+    pic2_role = result["role"]  # 最像的门生
+    pic2_topic = request_topic  # 匹配的主题
+
+    json_path = "data\pic2_idiom_match.json"
+    with open(json_path, "r", encoding="utf-8") as file:
+        json_data = json.load(file)
+
+    pic2_idiom = "学而时习之，不亦乐乎"  # （默认句） 根据 pic2_topic2 从找到对应要重写的原句（待实现）
+
+    # pic2_part_reserve 是挖槽时默认的其它内容， pic2_idiom是需要重写的内容
+    for item in json_data:
+        if item["class"] == pic2_topic:
+            pic2_part_reserve = item["part_reserve"]
+            pic2_idiom = item["part_rewrite"]
+
+    pic2_result = online_generate(
+        topic=pic2_topic,
+        role=pic2_role,
+        title="",
+        question=pic2_idiom,  # 具体的使用，参见online_generate函数类的设计
+        dialog=answer_from_front,
+        mode="translate",  # 使用请求中的mode（默认为None）
+    )
+
+    # 定制得到“你的论语”
+    pic2_user_idiom = pic2_result["answer_part"]
+    print("user's Lunyu idiom:", pic2_user_idiom)
+
+    # 为 result 添加新的键值对
+    result["answer_translation"] = ""
+    result["pic2_part_reserve"] = pic2_part_reserve
+    result["pic2_part_rewrite"] = pic2_idiom
+    result["pic2_user_idiom"] = pic2_user_idiom
+
+    # 返回参数
+    """
+    result = {
+        "answer": most_similar_answer, // pic1 匹配到最相似的回答
+        "answer_translation": most_similar_answer_trans, // pic1 匹配到最相似回答的中文翻译
+        "role": corresponding_role, // pic1 匹配到最相似的人物
+        "pic2_part_reserve": // pic2-1 原文不需要改动的内容
+        "pic2_part_rewrite": // pic2-2-1 原文需要重写原内容
+        "pic2_user_idiom": // pic2-2-2 原文改写后的内容-用户论语
+    }
+    """
+
     if result:
         return result
+
     else:
         # 没有找到匹配答案，返回 404 错误
         raise HTTPException(status_code=404, detail="没有找到匹配的答案。")
