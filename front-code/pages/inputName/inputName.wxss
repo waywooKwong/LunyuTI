@@ -1,62 +1,82 @@
 /* pages/resultOverlay1/resultOverlay1.wxss */
 .container {
   display: flex;
-  flex-direction: row;
-  height: 1241rpx;
-  padding: 10px;
-  margin: 10px;
-  box-sizing: border-box;
-}
-
-.side {
-  background-color: #ffffff;
-  flex: 1;
-}
-
-.main {
-  background-color: #f3ce88;
-  width: 460rpx;
-  display: block;
-  box-sizing: border-box;
-  height: 947rpx;
-  position: relative;
-  left: 0rpx;
-  top: 158rpx;
-}
-
-.inner {
-  display: flex;
   flex-direction: column;
-  height: 945rpx;
-  padding: 10px;
-  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
   box-sizing: border-box;
+  font-family: 'Georgia', serif;
+  width: 90%;
+  max-width: 800px; /* 可根据需要调整最大宽度 */
+  aspect-ratio: 16 / 9; /* 设置16:9的宽高比 */
+  border: 2px solid #493737; /* 古旧木色边框 */
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: relative;
-  left: 0rpx;
-  top: 2rpx;
+  overflow: hidden; /* 确保内容不超出容器 */
 }
 
 .content {
-  background-color: #f0e6c4;
-  height: 906rpx;
   display: flex;
-  flex-direction: column; /* 垂直排列 */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 20px;
   box-sizing: border-box;
+  width: 100%;
+  height: 100%;
 }
 
 .highlight-text {
-  font-size: 24px; /* 字体变大 */
-  font-weight: bold; /* 字体变粗 */
-  color: green; /* 颜色绿色 */
+  font-size: 24px;
+  font-weight: bold;
+  color: #493737; /* 统一为深褐色 */
+  margin-bottom: 20px;
 }
 
 input {
-  margin: 20rpx 0;
-  padding: 10rpx;
-  border: 1px solid #ccc;
-  border-radius: 5rpx;
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #493737; /* 边框颜色统一 */
+  border-radius: 5px;
   width: 80%;
+  font-size: 16px;
+}
+
+.button {
+  background-color: #493737; /* 统一按钮颜色 */
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: #665555; /* 悬停效果 */
+}
+
+/* 添加书脊和页码效果 */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 10px;
+  height: 80%;
+  background-color: #493737;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.container::after {
+  content: '3'; /* 根据页面调整页码 */
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-family: 'Georgia', serif;
+  font-size: 14px;
+  color: #999;
 }

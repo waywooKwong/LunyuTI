@@ -1,67 +1,101 @@
-/* pages/resultOverlay2/resultOverlay2.wxss */
-.letter-container {
+/* 主容器样式 */
+.result-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f5f5f5;
-  padding: 20px 0; /* 上下添加间隔 */
+  background-color: #ffffff; /* 背景为白色 */
+  height: 1400rpx; /* 调整整体高度 */
+  width: 100%; /* 占满屏幕宽度 */
+  box-sizing: border-box;
+  flex-direction: column; /* 确保竖屏适配 */
 }
 
-.letter-content {
-  width: 80%;
-  height: 60vh; /* 限制高度以启用滚动 */
-  padding: 20px;
-  background-color: #fdf5e6; /* 纸黄色背景 */
-  border: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Courier New', Courier, monospace;
-  line-height: 1.6;
-  white-space: pre-wrap; /* 保留换行 */
-  overflow-y: auto; /* 启用垂直滚动 */
-  margin-top: -20vh; /* 整体上移 20vh */
-  position: relative; /* 为伪元素定位 */
+/* 页面外框 */
+.outer-frame {
+  width: 90%; /* 外框宽度 */
+  max-width: 750rpx; /* 最大宽度限制 */
+  height: 1360rpx; /* 外框高度接近整体布局高度 */
+  padding: 20rpx;
+  border: 4rpx solid #493737; /* 深棕色外框 */
+  border-radius: 15rpx; /* 圆角效果 */
+  box-shadow: 0 4rpx 10rpx rgba(73, 55, 55, 0.3); /* 阴影效果 */
+  background-color: #ffffff; /* 背景为白色 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.letter-content::after {
-  content: '';
-  position: absolute;
-  top: 20px; /* 与 padding 顶部对齐 */
-  left: 20px; /* 与 padding 左侧对齐 */
-  width: calc(100% - 40px); /* 减去左右 padding */
-  height: calc(100% - 40px); /* 减去上下 padding */
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent calc(1.55em - 1px), /* 调整行高 */
-    lightgray calc(1.55em - 1px),
-    lightgray 1.55em
-  );
-  pointer-events: none; /* 使伪元素不影响文本选择 */
+/* 标题部分 */
+.title-section {
+  margin-bottom: 20rpx; /* 标题与竹简内容的间距 */
 }
 
-.highlight {
-  color: red; /* 设置文本颜色为红色 */
-}
-
-.extra-space {
-  margin-bottom: 1.6em; /* 额外的空行 */
-}
-
-.extra-space-small {
-  margin-bottom: 2em;
-}
-
-.userNameText {
-  text-align: right; /* 使内容靠右显示 */
-}
-
-.titleText {
+.title-text {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #493737; /* 深棕色文字 */
+  font-family: 'Georgia', serif;
   text-align: center;
 }
 
-.pic2_part_rewrite_Text {
-  text-align: right;
-  color: #a9a9a9; /* 设置字体颜色为淡灰色 */
-  font-size: 0.6em; 
+/* 竹简容器部分 */
+.bamboo-scroll {
+  display: flex;
+  flex-direction: row-reverse; /* 竹简条从右往左排列 */
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%; /* 占满宽度 */
+  height: 1200rpx; /* 设置高度适配竹简长度 */
+  overflow-x: auto; /* 支持横向滚动 */
+  background-color: #ffffff; /* 背景为白色 */
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+
+/* 每片竹简条 */
+.bamboo-strip {
+  display: flex;
+  flex-direction: column; /* 竖排文字 */
+  justify-content: center;
+  align-items: center;
+  width: 150rpx; /* 每片竹片的宽度 */
+  height: 1100rpx; /* 每片竹片的长度 */
+  margin: 0 10rpx; /* 每片竹片之间的间距 */
+  background-color: #f4ebe4; /* 浅米白色背景 */
+  border: 1rpx solid #493737; /* 深棕色边框 */
+  box-shadow: 2rpx 2rpx 5rpx rgba(73, 55, 55, 0.5); /* 模拟立体效果 */
+  border-radius: 8rpx; /* 圆角效果 */
+  overflow: hidden;
+  position: relative;
+}
+
+/* 不同颜色竹简的文字样式 */
+.black-text .vertical-text {
+  color: #000000; /* 黑色文字 */
+}
+
+.red-text .vertical-text {
+  color: #ff0000; /* 红色文字 */
+}
+
+.gray-text .vertical-text {
+  color: #808080; /* 灰色文字 */
+}
+
+/* 签名竹简 */
+.signature-strip {
+  background-color: #f4ebe4; /* 保持一致的背景色 */
+  border: 2rpx solid #493737;
+}
+
+/* 竖排文字样式 */
+.vertical-text {
+  writing-mode: vertical-rl; /* 竖排模式 */
+  text-orientation: upright; /* 直立文字 */
+  font-family: "KaiTi", serif; /* 楷体 */
+  font-size: 48rpx; /* 字体大小适配小程序 */
+  line-height: 2; /* 竖排文字的行高 */
+  text-align: center;
+  word-break: break-word; /* 防止文字溢出 */
 }

@@ -1,17 +1,29 @@
-<!-- pages/resultOverlay2/resultOverlay2.wxml -->
-<view class="letter-container">
-  <view class="letter-content">
-    <view class="titleText">你的论语</view>
-    <view class="line extra-space"></view> <!-- 添加额外的空行 -->
+<view class="result-container">
+  <!-- 页面外框 -->
+  <view class="outer-frame">
+    <!-- 标题部分 -->
+    <view class="title-section">
+      <text class="title-text">你的论语</text>
+    </view>
 
-
-    <text>{{pic2PartReserve}}</text>
-    <text class="highlight">{{pic2UserIdiom}}</text>
-    <view class="pic2_part_rewrite_Text">{{pic2PartRewrite}}</view>
-
-    <view class="line extra-space-small"></view> <!-- 添加额外的空行 -->
-    
-
-    <view class="userNameText">————{{userName}}</view>
+    <!-- 竹简内容部分 -->
+    <view class="bamboo-scroll">
+      <!-- pic2PartReserve -->
+      <view class="bamboo-strip black-text">
+        <text class="vertical-text">{{pic2PartReserve}}</text>
+      </view>
+      <!-- pic2UserIdiom -->
+      <view class="bamboo-strip red-text">
+        <text class="vertical-text">{{pic2UserIdiom}}</text>
+      </view>
+      <!-- pic2PartRewrite -->
+      <view class="bamboo-strip gray-text">
+        <text class="vertical-text">{{pic2PartRewrite}}</text>
+      </view>
+      <!-- 用户签名竹简 -->
+      <view class="bamboo-strip signature-strip">
+        <text class="vertical-text">—{{userName}}</text>
+      </view>
+    </view>
   </view>
 </view>

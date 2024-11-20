@@ -25,8 +25,7 @@
     </view>
     <view class="discussion-answers">
       <view class="answer-item">
-        <text wx:for="{{discipleName}}" class="disciple-name-char">{{item}}</text>
-        <text class="answer-label">如是说：</text>
+        <text class="answer-label">他如是说：</text>
         <text class="answer-text">{{discipleAnswer}}</text>
       </view>
       <view class="answer-item">
@@ -38,16 +37,8 @@
 
   <!-- 底部操作部分 -->
   <view class="bottom-section">
-    <view class="action-buttons">
-      <button class="icon-button" bindtap="saveImage">
-        <image src="/assets/icons/download.png" class="icon" />
-      </button>
-      <button class="icon-button" bindtap="sharePage">
-        <image src="/assets/icons/share.png" class="icon" />
-      </button>
-    </view>
     <view class="link-area">
-      <text class="link-text" bindtap="viewMoreLunyu">查看你的论语</text>
+      <text class="link-text" bindtap="viewMoreLunyu" style="position: relative; left: 500rpx; top: 0rpx">查看你的论语</text>
     </view>
   </view>
 </view>
