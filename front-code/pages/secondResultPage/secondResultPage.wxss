@@ -1,0 +1,101 @@
+/* 主容器样式 */
+.result-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff; /* 背景为白色 */
+  height: 1400rpx; /* 调整整体高度 */
+  width: 100%; /* 占满屏幕宽度 */
+  box-sizing: border-box;
+  flex-direction: column; /* 确保竖屏适配 */
+}
+
+/* 页面外框 */
+.outer-frame {
+  width: 90%; /* 外框宽度 */
+  max-width: 750rpx; /* 最大宽度限制 */
+  height: 1360rpx; /* 外框高度接近整体布局高度 */
+  padding: 20rpx;
+  border: 4rpx solid #493737; /* 深棕色外框 */
+  border-radius: 15rpx; /* 圆角效果 */
+  box-shadow: 0 4rpx 10rpx rgba(73, 55, 55, 0.3); /* 阴影效果 */
+  background-color: #ffffff; /* 背景为白色 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* 标题部分 */
+.title-section {
+  margin-bottom: 20rpx; /* 标题与竹简内容的间距 */
+}
+
+.title-text {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #493737; /* 深棕色文字 */
+  font-family: 'Georgia', serif;
+  text-align: center;
+}
+
+/* 竹简容器部分 */
+.bamboo-scroll {
+  display: flex;
+  flex-direction: row-reverse; /* 竹简条从右往左排列 */
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%; /* 占满宽度 */
+  height: 1200rpx; /* 设置高度适配竹简长度 */
+  overflow-x: auto; /* 支持横向滚动 */
+  background-color: #ffffff; /* 背景为白色 */
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+
+/* 每片竹简条 */
+.bamboo-strip {
+  display: flex;
+  flex-direction: column; /* 竖排文字 */
+  justify-content: center;
+  align-items: center;
+  width: 150rpx; /* 每片竹片的宽度 */
+  height: 1100rpx; /* 每片竹片的长度 */
+  margin: 0 10rpx; /* 每片竹片之间的间距 */
+  background-color: #f4ebe4; /* 浅米白色背景 */
+  border: 1rpx solid #493737; /* 深棕色边框 */
+  box-shadow: 2rpx 2rpx 5rpx rgba(73, 55, 55, 0.5); /* 模拟立体效果 */
+  border-radius: 8rpx; /* 圆角效果 */
+  overflow: hidden;
+  position: relative;
+}
+
+/* 不同颜色竹简的文字样式 */
+.black-text .vertical-text {
+  color: #000000; /* 黑色文字 */
+}
+
+.red-text .vertical-text {
+  color: #ff0000; /* 红色文字 */
+}
+
+.gray-text .vertical-text {
+  color: #808080; /* 灰色文字 */
+}
+
+/* 签名竹简 */
+.signature-strip {
+  background-color: #f4ebe4; /* 保持一致的背景色 */
+  border: 2rpx solid #493737;
+}
+
+/* 竖排文字样式 */
+.vertical-text {
+  writing-mode: vertical-rl; /* 竖排模式 */
+  text-orientation: upright; /* 直立文字 */
+  font-family: "KaiTi", serif; /* 楷体 */
+  font-size: 48rpx; /* 字体大小适配小程序 */
+  line-height: 2; /* 竖排文字的行高 */
+  text-align: center;
+  word-break: break-word; /* 防止文字溢出 */
+}

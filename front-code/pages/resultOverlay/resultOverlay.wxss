@@ -1,147 +1,149 @@
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
+.result-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.result-card {
-  width: 80%;
-  max-width: 400px;
-  max-height: 90vh; /* 设置最大高度 */
-  background-color: #fff;
-  border-radius: 10px;
+  flex-direction: column;
   padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  border: 2px solid #493737; /* 类似古旧木色边框 */
-  font-family: 'Georgia', serif;
-  overflow: auto; /* 添加滚动条 */
+  background-color: #ffffff;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-.header {
-  height: 50px;
-  background-color: #493737;
-  border-radius: 10px 10px 0 0;
+/* 顶部部分 */
+.top-section {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
-  overflow: auto; /* 添加滚动条 */
-}
-
-.disciple-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 2px solid #493737;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 20px;
 }
 
-.disciple-info {
-  text-align: center;
+.disciple-name-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  background-color: #f0f0f0;
+  border: 2px solid #493737;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.disciple-name {
-  font-size: 24px;
+.disciple-name-char {
+  font-size: 28px;
+  font-weight: bold;
+  color: #493737;
+}
+
+.disciple-info-box {
+  background-color: #f9f9f9;
+  border: 2px solid #493737;
+  border-radius: 10px;
+  padding: 15px;
+  width: 60%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.disciple-description {
+  font-size: 14px;
+  color: #666;
+  text-align: left;
+}
+
+/* 中部内容部分 */
+.discussion-section {
+  background-color: #ffffff;
+  border: 2px solid #493737;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.discussion-header {
+  margin-bottom: 15px;
+}
+
+.discussion-title {
+  font-size: 16px;
   font-weight: bold;
   color: #493737;
   margin-bottom: 10px;
 }
 
-.disciple-description {
-  font-size: 16px;
+.discussion-topic, .discussion-question {
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 5px;
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.discussion-topic-text, .discussion-question-text {
+  font-size: 14px;
+  color: #666;
+  text-align: left;
+}
+
+.discussion-answers {
+  margin-top: 15px;
+}
+
+.answer-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.answer-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #493737;
+  margin-right: 5px;
+}
+
+.answer-text {
+  font-size: 14px;
   color: #666;
 }
 
-.dialogue {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-.bubble {
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  max-width: 80%;
-}
-
-.system-bubble {
-  background-color: #f0f0f0;
-  align-self: flex-start;
-}
-
-.user-bubble {
-  background-color: #C78F79;
-  color: #fff;
-  align-self: flex-end;
-}
-
-.original-text {
-  font-family: "SimSun", serif;
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-.footer {
-  height: 50px;
+/* 底部操作部分 */
+.bottom-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 0 0 10px 10px;
-  background-color: #fff;
-  padding: 0 20px;
 }
 
-.action-button {
-  background-color: #493737;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
+.action-buttons {
+  display: flex;
+  gap: 10px;
 }
 
-.action-button:hover {
-  background-color: #1e795d;
+.icon-button {
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* 书脊效果 */
-.result-card::before {
-  content: '';
-  position: absolute;
-  top: 10%;
-  left: 0;
-  width: 10px;
-  height: 80%;
-  background-color: #493737;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.icon {
+  width: 24px;
+  height: 24px;
 }
 
-/* 页码效果 */
-.result-card::after {
-  content: '3';
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-  font-family: 'Georgia', serif;
+.link-area {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.link-text {
   font-size: 14px;
-  color: #999;
+  color: #493737;
+  text-decoration: underline;
+  cursor: pointer;
 }

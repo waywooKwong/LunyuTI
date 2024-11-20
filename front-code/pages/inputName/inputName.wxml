@@ -1,0 +1,10 @@
+<!-- pages/resultOverlay1/resultOverlay1.wxml -->
+
+<view class="container" style="width: 749rpx; height: 1399rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 0rpx">
+  <view class="content">
+    <text class="highlight-text">分析完毕！</text>
+    <text>接下来请输入您的名字，获取您的定制论语</text>
+    <input type="text" placeholder="请输入您的名字" bindinput="onInputChange" />
+    <button class="button" bindtap="onConfirm">确认</button>
+  </view>
+</view>
