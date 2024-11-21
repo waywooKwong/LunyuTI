@@ -1,6 +1,6 @@
 {
     "searchParameters": {
-        "q": "国内发生的热点事件，从国内新闻网上找",
+        "q": "央视新闻\n教育",
         "gl": "us",
         "hl": "en",
         "type": "news",
@@ -8,95 +8,94 @@
         "engine": "google"
     },
     "news": [
-       
         {
-            "title": "中国记协：青岛司机逆行打人事件尘埃落定，反思还应继续-腾讯新闻",
-            "link": "https://news.qq.com/rain/a/20240904A07LAB00",
-            "snippet": "近日，山东青岛“王某驾车逆行辱骂殴打他人”事件，引发各方关注。我们梳理了事件发生和发酵节点：2024年8月28日13时许，王某（女，38岁，崂山区人）驾车行至...",
-            "date": "1 month ago",
-            "source": "QQ News",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpXAV1IXEBTXZCrve6VPd3kjkFWIzWcGGh1FZxKCGOFdlL89qLYYsbxQNCyg&s",
+            "title": "科学教育“加法”怎样做好",
+            "link": "https://news.cctv.com/2024/11/19/ARTIhrL9COX54oFC22WRusOC241119.shtml",
+            "snippet": "自2013年以来，师生每日进行气象观测，成为这所学校开展科学教育的举措之一。在山东，因地制宜、一校一策的科学教育，正在全面铺开。",
+            "date": "1 day ago",
+            "source": "央视网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSReNB2Rw4jggLeE-fMKdvYvxVnLS3RuApBHDol0rZRsOSzUaC-b2LndaKLlQ&s",
             "position": 1
         },
-         {
-            "title": "百万网红“小英一家”陷塌房争议：记录生活还是“卖惨”营销？-腾讯新闻",
-            "link": "https://news.qq.com/rain/a/20240924A07TQ600",
-            "snippet": "潮新闻客户端记者吴越朱高祥因深陷“卖惨”风波，百万网红@小英一家已停更三天，掉粉超10万，其发布的689个乡村生活视频被淹没在质疑声中。",
-            "date": "3 weeks ago",
-            "source": "QQ News",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyc-McjpaRWQUoiETiZBCq4814kcJnqp8Cc7UdlGzXRg_JtwnTaaZEmsbJ1g&s",
+        {
+            "title": "学习《决定》每日问答丨为什么要建立经常性和集中性相结合的纪律教育机制",
+            "link": "https://news.cctv.com/2024/11/18/ARTIFUsSmSfdC49kJ2uU1CBf241118.shtml",
+            "snippet": "中共中央关于进一步全面深化改革、推进中国式现代化的决定》提出：“建立经常性和集中性相结合的纪律教育机制”。这是加强党的纪律建设、推动全面从严治...",
+            "date": "2 days ago",
+            "source": "央视网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgyluW5j5di88R7ANrxsqzUbOkbTJ4AR3GNZqG__WY6gznDhtq1D4PUwFGmA&s",
             "position": 2
         },
         {
-            "title": "一夜掉粉百万，被流量反噬的网红们踩了哪些雷区？",
-            "link": "https://m.36kr.com/p/2875832558162305",
-            "snippet": "“空空日记”可能是今年掉粉速度最快的网红。 他是抖音粉丝超过500万的生活博主，只因一网友表示不喜欢他，便在直播间用“得癌了吧”“有病就赶紧投胎吧”等...",
+            "title": "【央视新闻联播】卢建军、梅雪松参加全国教育大会",
+            "link": "https://news.xjtu.edu.cn/info/1033/213967.htm",
+            "snippet": "全国教育大会9日至10日在北京召开。中共中央总书记、国家主席、中央军委主席习近平出席大会并发表重要讲话。他强调，建成教育强国是近代以来中华民族...",
             "date": "2 months ago",
-            "source": "36Kr",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf9ECpfs-kwI47RjfiIPo71DAHz0KvGDYUoKd1MwxoPm_AfjDDauLnF7DKtw&s",
+            "source": "西安交通大学新闻网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOte14mJMWVRI6EIh2jQR_Lg2tvqyQJQURsYD1jQaQ9s-XrnnXG0eEID09yw&s",
             "position": 3
         },
         {
-            "title": "山东寿光一生物科技公司发生气体中毒事故致7死4伤",
-            "link": "https://news.cctv.com/2024/10/13/ARTIqRCymyYr8ml56rvO4MBy241013.shtml",
-            "snippet": "2024年10月12日13时30分左右，潍坊金石生物科技有限公司发生气体中毒事故，造成7人死亡，4人受伤，受伤者生命体征平稳。事故相关责任人已被控制。",
-            "date": "1 hour ago",
-            "source": "央视网",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpumozPeMRldENoOKIZ6fYLXOHxBPx8IUzeVQFhhoWMXVbjb_y0dZe6X9vNw&s",
-            "position": 2
+            "title": "教育部：普惠性幼儿园覆盖率达90.8%",
+            "link": "https://wap.yzwb.net/wap/news/4135084.html",
+            "snippet": "在教育部今天举行的新闻发布会上，教育部基础教育司相关负责人介绍，2023年全国幼儿园数量达到27.4万所，在园幼儿4093万人，学前三年的毛入园率达到91.1%，...",
+            "date": "1 week ago",
+            "source": "紫牛新闻",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGsQPyrkvVvkAMGbCRezr2ZklF1_IK0fPzydwiiTEaNssHDyszshTCJta5lg&s",
+            "position": 4
         },
         {
-            "title": "济南解放阁鬼火少年后续：到底是怎么组织起来的这么多人！",
-            "link": "https://www.163.com/dy/article/JE0U4EPB05568ZK4.html",
-            "snippet": "这两天鬼火少年频繁登上热搜！ 10月6日晚11时许，山东济南历下区解放阁附近有组织的出现大量“鬼火少年”。 他们在人群中飙车炫技、燃放烟花，还有人爬上...",
-            "date": "4 days ago",
-            "source": "手机网易网",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVpZsUg5F_M5nCV8Lk5_ufv5O2AgXTRk7YRcDuLfCAeaHgPAPyDxzIKuC7hQ&s",
+            "title": "教育部：严厉打击虚假招聘、恶意解约等违法违规行为，切实维护毕业生权益",
+            "link": "https://m.huanqiu.com/article/4KFV8qLsl9w",
+            "snippet": "教育部今天表示，将做好2025届高校毕业生就业工作，配合相关部门依法严厉打击虚假招聘、恶意解约等违法违规行为，切实维护毕业生权益。",
+            "date": "1 week ago",
+            "source": "环球网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuE4P9YpTbeHTcu8em6sP-Jcg_Perq3d296-Kn0t0o7CXHNgjhiQnVxe9h9w&s",
             "position": 5
         },
         {
-            "title": "抖音网红，一直塌方？",
-            "link": "https://www.donews.com/article/detail/5267/75692.html",
-            "snippet": "粉丝量超2400万的抖音网红“东北雨姐”，最近“塌房”了。",
-            "date": "3 weeks ago",
-            "source": "DoNews",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbrAW49WPo9l9B_vEb61ISBW866qdOWLwxHJjrLsJm5FQG6AHIdFekqhKpQw&s",
+            "title": "[央视新闻]教育部：终身教育平台累计上线资源100余万个",
+            "link": "http://www.moe.gov.cn/fbh/live/2024/55785/mtbd/202401/t20240126_1112641.html",
+            "snippet": "记者从教育部新闻发布会了解到，我国持续推进数字化赋能服务终身学习。2023年，教育部推动80个城市申请加入全国学习型城市网络，学习型城市网络更加健全...",
+            "date": "9 months ago",
+            "source": "中华人民共和国教育部",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEudzfq2PafYVedX0SBylvLfrXvijVjyzqKkWvah_EjGpgMGlcHFdkKtf6uA&s",
             "position": 6
         },
         {
-            "title": "解局 | 是谁给黎巴嫩传呼机动了手脚？",
-            "link": "http://www.news.cn/world/20240918/960df060adc24e13b6224c5e2b33e4d2/c.html",
-            "snippet": "新华社北京/贝鲁特9月18日电黎巴嫩多地17日下午发生传呼机爆炸事件，造成至少9人死亡、约2800人受伤。一名黎巴嫩真主党官员说，这次的袭击目标不是针对...",
-            "date": "3 weeks ago",
-            "source": "新华网",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsY5jivd_EGZLi1KNxckGliZq3xIOS6lDnfQsf5nb2HLqIVf83gYHq3nMisw&s",
-            "position": 9
+            "title": "教育部：坚决纠正幼儿园“小学化”",
+            "link": "https://wap.yzwb.net/wap/news/4134866.html",
+            "snippet": "在教育部今天举行的新闻发布会上，教育部基础教育司相关负责人介绍，将进一步提高保教质量，继续深入开展清理整治，坚决纠正幼儿园“小学化”等不规范办园...",
+            "date": "1 week ago",
+            "source": "紫牛新闻",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD0iGHPtFdhDnQ35PuDR_L99GPqn_yDXLxxCpub4BcGpGotXf2Qp9pwpL0lQ&s",
+            "position": 7
         },
         {
-            "title": "沧州经济开发区：传承孝道 情暖重阳",
-            "link": "http://he.people.com.cn/n2/2024/1010/c192235-41003197.html",
-            "snippet": "10月10日，河北省沧州市兴业路小学的学生们走进沧州经济开发区雅布伦养老院，开展“感恩重阳老幼同乐”重阳节慰问活动，为老人们送上关怀和节日的祝福。",
-            "date": "3 days ago",
-            "source": "人民网",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWYBZzzGaOEBkjg0ToiGruqOAR6yJDzlfoT91JIn1uRo3I0Z3b_-g_O7WEkw&s",
+            "title": "[央视新闻]教育部：普惠性幼儿园在园幼儿达90.8% - 新闻通气会",
+            "link": "http://www.moe.gov.cn/jyb_xwfb/xw_fbh/moe_2606/2024/0516/baodao/202405/t20240516_1131008.html",
+            "snippet": "普惠水平大幅提高。2023年全国普惠性幼儿园（包括公办园和普惠性民办园）达到23.6万所，占幼儿园总数的86.2%。其中公办园12.5万所，比2013年增长了91.9%，充分...",
+            "date": "6 months ago",
+            "source": "中华人民共和国教育部",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUetJSJA0L-fjOBXzdSi-V8HZLvsUGEKcCIKkhw5IkJWrmHLvW81-GdxrLhA&s",
             "position": 8
         },
         {
-            "title": "会员费白交了，你看4K视频可能是个假货！揭秘视频网站“清晰度缩水”真相：你被骗了多久？",
-            "link": "https://finance.sina.cn/2024-10-10/detail-incsavui1911006.d.html?vt=4&cid=76675&node_id=76675",
-            "snippet": "令人意想不到，视频平台竟有如此骚操作！ 你付费看的4K，可能只是“假高清”！你看的高清也可能不是真高清！ 视频网站为降低流量费用，会对多人观看的...",
-            "date": "2 days ago",
-            "source": "新浪财经",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC8j6iUcgjmtVuVIIou0Lfqu3RPo2sk40JYE-q5e-FPXNlUU8vLQ2NikGrhQ&s",
-            "position": 2
+            "title": "立德树人｜“教” 育为本",
+            "link": "http://news.cctv.com/2024/09/08/ARTI7H9Bo0KIpYB12OjUrmmx240908.shtml",
+            "snippet": "2024年7月18日，党的二十届三中全会审议通过《中共中央关于进一步全面深化改革、推进中国式现代化的决定》，明确提出加快建设高质量教育体系，统筹推进育...",
+            "date": "2 months ago",
+            "source": "央视网",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-ohKISbSef-Noq1YhZpbCXrthpdlOO_W79qtCBsP9pcAhK5tvtqmwYN56PA&s",
+            "position": 9
         },
-         {
-            "title": "千万粉丝网红大蓝账号被封，此前多次推荐股票，有网友称跟风被套-腾讯新闻",
-            "link": "https://news.qq.com/rain/a/20241011A051RY00",
-            "snippet": "10月11日午后，据媒体报道，千万粉丝博主大蓝抖音账号被封。此前，大蓝连发几十条股市相关作品，标题包括“A股大盘公开预测”“新手炒股赚钱买哪只股票”“我是...",
-            "date": "2 days ago",
-            "source": "QQ News",
-            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHsj_iquyIQp8MI4a77KAGS6nMUshW9PlyfOq_2iBe0PX8YeVjU1fvkyhKpA&s",
+        {
+            "title": "我国已建成世界最大规模职业教育体系 职业学校在校生近3500万人",
+            "link": "https://wap.yzwb.net/wap/news/4143106.html",
+            "snippet": "记者从教育部新闻发布会上了解到，我国已经建成世界上最大规模的职业教育体系。截至2023年，我国共有职业学校（含技工学校）11133所，在校生近3500万人，...",
+            "date": "6 days ago",
+            "source": "紫牛新闻",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgnuEC1cnP9kIoxOhdwoVgeM3VfPgzMbtCnan1I5RtA5zkmLQ-9e-9M2yhDw&s",
             "position": 10
         }
     ],

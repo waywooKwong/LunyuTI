@@ -30,24 +30,24 @@ with open(file_path, 'r', encoding='utf-8') as f:
 input=f"""
     分析以下主题\n
             
-    从以下20个给定主题中选出来最符合该新闻的主题：\n
+    从以下14个给定主题中选出来最符合该新闻的主题：\n
     贤者的品质\n
     孝道的理解\n
     美与艺术\n
-    为人处世的原则\n
+    
     对生死的看法\n
     仁爱与智慧\n
     执政之道\n
     学习与志向\n
-    人际关系\n
+  
     君子的修养\n
     道德与礼仪\n
-    责任与担当\n
-    自我反省\n
+  
+
     教育与教导\n
     对友谊的看法\n
-    权力与责任\n
-    信任与信用\n
+
+ 
     道德修养\n
     以德治国\n
     社会和谐\n
@@ -66,7 +66,7 @@ for news_item in json_data["news"]:
     snippet=news_item["snippet"]
     date=news_item["date"]
     source=news_item["source"]
-    
+    img_url=news_item["imageUrl"]
 
 
 
@@ -143,7 +143,8 @@ for news_item in json_data["news"]:
         "snippet": snippet,
         "date": date,
         "source": source,
-        "theme": topic["answer"]
+        "theme": topic["answer"],
+        "img_url":img_url
     }
     results.append(news_result)
 
@@ -151,7 +152,7 @@ for news_item in json_data["news"]:
     print("***************************************************************************************\n")
 
 # 最后将结果保存到一个新的JSON文件
-output_file = "Lunyu/news_with_themes.json"
+output_file = "Lunyu/news_with_themes01.json"
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(results, f, ensure_ascii=False, indent=4)
 
