@@ -17,11 +17,12 @@ Page({
         topic: decodeURIComponent(options.topic), // 接收并解码主题
 
       });
-      this.fetchThemeData(this.topic);
+      this.fetchThemeData(decodeURIComponent(options.topic));
     }
   },
 
   fetchThemeData(topic) {
+    console.log(this.topic);
     wx.cloud.init({
       env: 'lunyu-yun-1gwm9lfhd499c7bf'
     });
