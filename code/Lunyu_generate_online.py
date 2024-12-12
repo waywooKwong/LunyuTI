@@ -406,7 +406,7 @@ def process_news_data(request: GenerationRequest):
                     processed_roles.add(role)
 
                     # 如果角色集合的大小超过5，停止处理
-                    if len(processed_roles) > 5:
+                    if len(processed_roles) > 2:
                         break
 
                     # 获取对话信息
