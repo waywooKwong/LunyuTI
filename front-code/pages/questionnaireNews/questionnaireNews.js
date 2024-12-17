@@ -1,3 +1,4 @@
+const { port } = require('../config');
 Page({
   data: {
     selectedTopic: '',     // 选择的话题
@@ -65,7 +66,7 @@ Page({
 
     // 发起匹配请求
     wx.request({
-      url: 'http://localhost:8000/online_generate/', // 替换为实际后端地址
+      url: `https://${port}/online_generate/`, // 替换为实际后端地址
       method: 'POST',
       timeout: 120000,
       data: {

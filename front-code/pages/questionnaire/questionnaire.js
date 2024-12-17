@@ -1,3 +1,4 @@
+const { port } = require('../config');
 Page({
   data: {
     selectedTopic: '',
@@ -25,7 +26,7 @@ Page({
 
   getQuestion() {
     wx.request({
-      url: 'http://localhost:8000/get_question/',
+      url: `https://${port}/get_question/`,
       method: 'GET',
       data: {
         theme_from_front: this.data.selectedTopic
@@ -83,7 +84,7 @@ Page({
 
     // 发起匹配请求
     wx.request({
-      url: 'http://localhost:8000/get_answer/',
+      url: `https://${port}/get_answer/`,
       method: 'GET',
       data: {
         question_from_back: this.data.question,

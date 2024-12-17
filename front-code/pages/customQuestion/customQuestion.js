@@ -1,3 +1,5 @@
+const { port } = require('../config');
+
 Page({
   data: {
     dialogues: [], // 对话记录
@@ -71,7 +73,7 @@ Page({
     wx.showLoading({ title: '加载中...' });
   
     wx.request({
-      url: 'http://localhost:8000/online_generate/', // 替换为实际后端地址
+      url: `http://${port}/online_generate/`, // 替换为实际后端地址
       method: 'POST',
       timeout: 120000,
       header: {
