@@ -24,11 +24,11 @@ Page({
   fetchThemeData(topic) {
     console.log(this.topic);
     wx.cloud.init({
-      env: 'lunyu-yun-1gwm9lfhd499c7bf'
+      env: 'lunyu-yun-9g0m7fjh21d5c899'
     });
     // 1. 获取数据库引用
     const db = wx.cloud.database({
-      env: 'lunyu-yun-1gwm9lfhd499c7bf'
+      env: 'lunyu-yun-9g0m7fjh21d5c899'
     });
     // 2. 构造查询语句
     db.collection('news').where({

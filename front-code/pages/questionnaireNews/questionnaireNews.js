@@ -66,7 +66,7 @@ Page({
 
     // 发起匹配请求
     wx.request({
-      url: `https://${port}/online_generate/`, // 替换为实际后端地址
+      url: `${port}/online_generate/`, // 替换为实际后端地址
       method: 'POST',
       timeout: 120000,
       data: {

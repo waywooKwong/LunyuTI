@@ -73,9 +73,9 @@ Page({
     wx.showLoading({ title: '加载中...' });
   
     wx.request({
-      url: `http://${port}/online_generate/`, // 替换为实际后端地址
+      url: `${port}/online_generate/`, // 替换为实际后端地址
       method: 'POST',
-      timeout: 120000,
+      timeout: 1200000,
       header: {
         'Content-Type': 'application/json',
       },

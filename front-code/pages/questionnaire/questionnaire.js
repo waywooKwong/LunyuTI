@@ -26,7 +26,7 @@ Page({
 
   getQuestion() {
     wx.request({
-      url: `https://${port}/get_question/`,
+      url: `${port}/get_question/`,
       method: 'GET',
       data: {
         theme_from_front: this.data.selectedTopic
@@ -84,7 +84,7 @@ Page({
 
     // 发起匹配请求
     wx.request({
-      url: `https://${port}/get_answer/`,
+      url: `${port}/get_answer/`,
       method: 'GET',
       data: {
         question_from_back: this.data.question,
